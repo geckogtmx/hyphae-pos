@@ -1,10 +1,9 @@
 
 import React from 'react';
-import { 
+import {
   PanelLeft,
   PanelRight,
   LayoutPanelLeft,
-  Columns2,
   ArrowRightLeft,
   RectangleHorizontal
 } from 'lucide-react';
@@ -16,17 +15,17 @@ interface ControlBarProps {
   onSwap: () => void;
 }
 
-const ControlBar: React.FC<ControlBarProps> = ({ 
-  currentRatio, 
-  onRatioChange, 
-  isSwapped, 
-  onSwap 
+const ControlBar: React.FC<ControlBarProps> = ({
+  currentRatio,
+  onRatioChange,
+  isSwapped,
+  onSwap
 }) => {
   const buttons = [
     { ratio: 1.0, icon: PanelLeft, label: 'Rail Focus' },
-    { ratio: 0.67, icon: PanelRight, label: '67/33 (Wide Rail)' }, 
+    { ratio: 0.67, icon: PanelRight, label: '67/33 (Wide Rail)' },
     { ratio: 0.33, icon: LayoutPanelLeft, label: '33/67 (Standard)' },
-    { ratio: 0.0, icon: RectangleHorizontal, label: 'Stage Focus' }, 
+    { ratio: 0.0, icon: RectangleHorizontal, label: 'Stage Focus' },
   ];
 
   return (
@@ -35,15 +34,15 @@ const ControlBar: React.FC<ControlBarProps> = ({
         {buttons.map((btn) => {
           const Icon = btn.icon;
           const isActive = currentRatio === btn.ratio;
-          
+
           return (
             <button
               key={btn.label}
               onClick={() => onRatioChange(btn.ratio)}
               className={`
                 w-full aspect-square flex items-center justify-center rounded-lg transition-all duration-200
-                ${isActive 
-                  ? 'bg-lime-400 dark:bg-lime-400 text-zinc-900 dark:text-zinc-950 shadow-[0_0_10px_rgba(163,230,53,0.3)]' 
+                ${isActive
+                  ? 'bg-lime-400 dark:bg-lime-400 text-zinc-900 dark:text-zinc-950 shadow-[0_0_10px_rgba(163,230,53,0.3)]'
                   : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-500 hover:bg-zinc-300 dark:hover:bg-zinc-700 hover:text-zinc-700 dark:hover:text-zinc-300'}
               `}
               title={btn.label}
@@ -60,8 +59,8 @@ const ControlBar: React.FC<ControlBarProps> = ({
           onClick={onSwap}
           className={`
             w-full aspect-square flex items-center justify-center rounded-lg transition-all duration-200
-            ${isSwapped 
-              ? 'bg-lime-100 dark:bg-lime-900/50 text-lime-600 dark:text-lime-400 border border-lime-500/30' 
+            ${isSwapped
+              ? 'bg-lime-100 dark:bg-lime-900/50 text-lime-600 dark:text-lime-400 border border-lime-500/30'
               : 'bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-500 hover:bg-zinc-300 dark:hover:bg-zinc-700 hover:text-zinc-700 dark:hover:text-zinc-300'}
           `}
           title="Swap Sides"

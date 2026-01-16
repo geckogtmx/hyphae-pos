@@ -4,11 +4,11 @@ import { SavedOrder } from '../types';
 // --- TIME HELPERS ---
 
 export const formatDuration = (startTime?: number) => {
-  if (!startTime) return '0:00';
-  const diff = Math.floor((Date.now() - startTime) / 1000);
-  const mins = Math.floor(diff / 60);
-  const secs = diff % 60;
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
+    if (!startTime) return '0:00';
+    const diff = Math.floor((Date.now() - startTime) / 1000);
+    const mins = Math.floor(diff / 60);
+    const secs = diff % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
 export const getDurationSecs = (start?: number, end?: number) => {
@@ -71,9 +71,23 @@ export const calculateSpecificSummary = (orders: SavedOrder[]) => {
 
 // --- ASSEMBLY BUNDLER ---
 
+
+export interface AssemblySide {
+    name: string;
+    modifiers: string[];
+}
+
+export interface AssemblyBundle {
+    uniqueId: string;
+    name: string;
+    qty: number;
+    mods: string[];
+    sides: AssemblySide[];
+}
+
 export const groupItemsForAssembly = (order: SavedOrder) => {
-    const bundlesMap = new Map<string, any>();
-    
+    const bundlesMap = new Map<string, AssemblyBundle>();
+
     (order.items || []).forEach(item => {
         const mods: string[] = [];
         const sidesMap = new Map<string, { name: string, modifiers: string[] }>();
@@ -97,29 +111,29 @@ export const groupItemsForAssembly = (order: SavedOrder) => {
 
         // Pass 2: Main Mods
         sortedMods.forEach(mod => {
-             const group = groups.find(g => g.id === mod.groupId);
-             if (group?.variant === 'sub_item') return;
+            const group = groups.find(g => g.id === mod.groupId);
+            if (group?.variant === 'sub_item') return;
 
-             let isAssignedToSide = false;
-             if (group?.dependency) {
-                 const parentGroup = groups.find(pg => pg.id === group.dependency?.groupId);
-                 if (parentGroup?.variant === 'sub_item') {
-                     const sideEntry = sidesMap.get(parentGroup.id);
-                     if (sideEntry) {
-                         const label = mod.variation !== 'Normal' ? `${mod.variation} ${mod.name}` : mod.name;
-                         sideEntry.modifiers.push(label);
-                         isAssignedToSide = true;
-                     }
-                 }
-             }
+            let isAssignedToSide = false;
+            if (group?.dependency) {
+                const parentGroup = groups.find(pg => pg.id === group.dependency?.groupId);
+                if (parentGroup?.variant === 'sub_item') {
+                    const sideEntry = sidesMap.get(parentGroup.id);
+                    if (sideEntry) {
+                        const label = mod.variation !== 'Normal' ? `${mod.variation} ${mod.name}` : mod.name;
+                        sideEntry.modifiers.push(label);
+                        isAssignedToSide = true;
+                    }
+                }
+            }
 
-             if (!isAssignedToSide) {
-                 if (mod.variation !== 'Normal') {
-                      mods.push(`${mod.variation} ${mod.name}`);
-                 } else {
-                      mods.push(mod.name);
-                 }
-             }
+            if (!isAssignedToSide) {
+                if (mod.variation !== 'Normal') {
+                    mods.push(`${mod.variation} ${mod.name}`);
+                } else {
+                    mods.push(mod.name);
+                }
+            }
         });
 
         const sidesArray = Array.from(sidesMap.values());
@@ -131,7 +145,7 @@ export const groupItemsForAssembly = (order: SavedOrder) => {
             bundlesMap.set(signature, {
                 uniqueId: item.uniqueId,
                 name: item.name,
-                qty: 1, 
+                qty: 1,
                 mods,
                 sides: sidesArray
             });

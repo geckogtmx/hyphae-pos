@@ -12,14 +12,28 @@ interface AssemblyLineModalProps {
     onPackAndClose: (order: SavedOrder) => void;
 }
 
+
+interface AssemblySide {
+    name: string;
+    modifiers: string[];
+}
+
+interface AssemblyBundle {
+    uniqueId: string;
+    name: string;
+    qty: number;
+    mods: string[];
+    sides: AssemblySide[];
+}
+
 const AssemblyLineModal: React.FC<AssemblyLineModalProps> = ({ orders, onClose, onPackAndClose }) => {
     const assemblyRef = useRef<HTMLDivElement>(null);
     const [collapsedAssemblyIds, setCollapsedAssemblyIds] = useState<Set<string>>(new Set());
 
     const assemblyDataMemo = useMemo(() => {
-        const data = new Map<string, { bundles: any[], packaging: Record<string, number> }>();
+        const data = new Map<string, { bundles: AssemblyBundle[], packaging: Record<string, number> }>();
         orders.forEach(order => {
-            const bundles = groupItemsForAssembly(order);
+            const bundles = groupItemsForAssembly(order) as AssemblyBundle[];
             let packaging = {};
             try {
                 const payload = {
@@ -70,9 +84,9 @@ const AssemblyLineModal: React.FC<AssemblyLineModalProps> = ({ orders, onClose, 
                     <UtensilsCrossed size={20} className="mr-2" />
                     <span className="font-bold uppercase tracking-widest text-sm">Assembly Line (Bagging)</span>
                 </div>
-                <button onClick={onClose} className="p-2 bg-zinc-800 rounded-full text-zinc-400 hover:text-white"><X size={18}/></button>
+                <button onClick={onClose} className="p-2 bg-zinc-800 rounded-full text-zinc-400 hover:text-white"><X size={18} /></button>
             </div>
-            
+
             <div ref={assemblyRef} className="flex-1 p-4 overflow-x-auto whitespace-nowrap space-x-4">
                 {orders.map(order => {
                     const data = assemblyDataMemo.get(order.id);
@@ -86,11 +100,11 @@ const AssemblyLineModal: React.FC<AssemblyLineModalProps> = ({ orders, onClose, 
                     const gridClass = !isCollapsed && bundles.length > 3 ? 'grid grid-cols-2 gap-3' : 'flex flex-col gap-3';
 
                     return (
-                        <div 
-                            key={order.id} 
+                        <div
+                            key={order.id}
                             className={`inline-block h-full align-top bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-300 ${widthClass}`}
                         >
-                            <div 
+                            <div
                                 onClick={() => toggleAssemblyCollapse(order.id)}
                                 className={`
                                     cursor-pointer flex items-center justify-between p-3 border-b border-zinc-800 hover:bg-zinc-800 transition-colors
@@ -105,14 +119,14 @@ const AssemblyLineModal: React.FC<AssemblyLineModalProps> = ({ orders, onClose, 
                                         </div>
                                         <div className="text-right flex items-center gap-3">
                                             <div>
-                                                <LiveTimer 
-                                                    startTime={order.status === 'Kitchen' ? order.cookingStartedAt : order.createdAt} 
-                                                    className={`font-mono font-bold text-sm ${isReady ? 'text-lime-500' : 'text-orange-500'}`} 
+                                                <LiveTimer
+                                                    startTime={order.status === 'Kitchen' ? order.cookingStartedAt : order.createdAt}
+                                                    className={`font-mono font-bold text-sm ${isReady ? 'text-lime-500' : 'text-orange-500'}`}
                                                 />
                                                 <div className="text-[9px] text-zinc-600 uppercase">COOK TIME</div>
                                             </div>
                                             {isReady && (
-                                                <button 
+                                                <button
                                                     onClick={(e) => { e.stopPropagation(); onPackAndClose(order); }}
                                                     className="w-8 h-8 rounded-full bg-zinc-800 hover:bg-lime-500 text-zinc-400 hover:text-black flex items-center justify-center transition-all border border-zinc-700 hover:border-lime-400"
                                                     title="Pack & Close"
@@ -133,7 +147,7 @@ const AssemblyLineModal: React.FC<AssemblyLineModalProps> = ({ orders, onClose, 
                             {!isCollapsed && (
                                 <div className="flex flex-col h-[calc(100%-60px)]">
                                     <div className={`flex-1 p-3 whitespace-normal overflow-y-auto ${gridClass}`}>
-                                        {bundles.map((bundle: any, idx: number) => (
+                                        {bundles.map((bundle, idx) => (
                                             <div key={`${bundle.uniqueId}-${idx}`} className="bg-zinc-950 border border-zinc-800 rounded-lg p-3 flex flex-col">
                                                 <div className="flex justify-between items-start mb-2 border-b border-zinc-800 pb-2">
                                                     <span className="font-bold text-white text-sm uppercase">{bundle.name}</span>
@@ -149,7 +163,7 @@ const AssemblyLineModal: React.FC<AssemblyLineModalProps> = ({ orders, onClose, 
                                                 {bundle.sides.length > 0 && (
                                                     <div className="mt-auto pt-2 border-t border-zinc-800">
                                                         <span className="text-[9px] text-zinc-500 uppercase font-bold block mb-1">INCLUDED SIDES</span>
-                                                        {bundle.sides.map((side: any, i: number) => (
+                                                        {bundle.sides.map((side, i) => (
                                                             <div key={i} className="text-xs text-zinc-400 bg-zinc-900 px-2 py-1 rounded border border-zinc-800 mb-1 flex items-center flex-wrap gap-2">
                                                                 <span className="font-bold text-white">{side.name}</span>
                                                                 {side.modifiers.map((mod: string, j: number) => (

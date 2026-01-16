@@ -94,8 +94,9 @@ The app will be available at `http://localhost:3000`
 | `npm run dev` | Start development server with HMR |
 | `npm run build` | Build for production |
 | `npm run preview` | Preview production build |
-| `npm run test` | Run unit tests (coming soon) |
-| `npm run lint` | Check code quality (coming soon) |
+| `npm run test` | Run unit tests with Vitest |
+| `npm run lint` | Check code quality with ESLint |
+| `npm run format` | Format code with Prettier |
 
 ---
 

@@ -21,38 +21,38 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined);
 
 // --- HELPER: RECALCULATE PERKS (Gold Logic) ---
 const recalculateCartWithPerks = (items: OrderItem[], profile: LoyaltyProfile | null): OrderItem[] => {
-    if (!profile) return items; // No profile, no perks logic
-    
-    // Check if Gold Tier
-    const isGold = profile.currentTierId === 'tier_gold';
-    if (!isGold) return items.map(i => ({...i, finalPrice: i.price + (i.selectedModifiers?.reduce((a,m) => a+m.price, 0) || 0), isDiscounted: false}));
+  if (!profile) return items; // No profile, no perks logic
 
-    // Logic: Free Fries (Sub-Item) if Burger is present
-    return items.map(item => {
-        let itemTotal = item.price;
-        let modsTotal = 0;
-        let discounted = false;
+  // Check if Gold Tier
+  const isGold = profile.currentTierId === 'tier_gold';
+  if (!isGold) return items.map(i => ({ ...i, finalPrice: i.price + (i.selectedModifiers?.reduce((a, m) => a + m.price, 0) || 0), isDiscounted: false }));
 
-        const isBurger = item.categoryId === 'burgers';
+  // Logic: Free Fries (Sub-Item) if Burger is present
+  return items.map(item => {
+    const itemTotal = item.price;
+    let modsTotal = 0;
+    let discounted = false;
 
-        item.selectedModifiers?.forEach(mod => {
-            let modPrice = mod.price;
-            
-            // PERK APPLICATION
-            if (isBurger && mod.name.includes('Fries')) {
-                 modPrice = 0; // Discount this modifier
-                 discounted = true;
-            }
-            
-            modsTotal += modPrice;
-        });
-        
-        return {
-            ...item,
-            finalPrice: itemTotal + modsTotal,
-            isDiscounted: discounted
-        };
+    const isBurger = item.categoryId === 'burgers';
+
+    item.selectedModifiers?.forEach(mod => {
+      let modPrice = mod.price;
+
+      // PERK APPLICATION
+      if (isBurger && mod.name.includes('Fries')) {
+        modPrice = 0; // Discount this modifier
+        discounted = true;
+      }
+
+      modsTotal += modPrice;
     });
+
+    return {
+      ...item,
+      finalPrice: itemTotal + modsTotal,
+      isDiscounted: discounted
+    };
+  });
 };
 
 const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
@@ -66,8 +66,8 @@ const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
       return { ...state, items: recalculateCartWithPerks(newItems, state.loyaltyProfile) };
     }
     case 'UPDATE_ITEM': {
-      const newItems = state.items.map((item) => 
-          item.uniqueId === action.payload.uniqueId ? action.payload : item
+      const newItems = state.items.map((item) =>
+        item.uniqueId === action.payload.uniqueId ? action.payload : item
       );
       return { ...state, items: recalculateCartWithPerks(newItems, state.loyaltyProfile) };
     }
@@ -77,137 +77,137 @@ const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
       return { ...state, customer: action.payload };
     case 'SET_STAFF':
       return { ...state, currentStaffId: action.payload };
-    
+
     // --- LOYALTY ACTIONS ---
     case 'LOGIN_LOYALTY': {
-        const cardNum = action.payload.toUpperCase();
-        
-        // 1. Find Card (Relational Lookup)
-        const activeCard = LOYALTY_CARDS.find(c => c.code === cardNum && c.status === 'ACTIVE');
-        
-        if (activeCard) {
-            // 2. Find User
-            const profile = LOYALTY_PROFILES.find(p => p.id === activeCard.userId);
-            
-            if (profile) {
-                // Hydrate Transactions (In Real Firebase, this is a subcollection query)
-                const transactions = LOYALTY_TRANSACTIONS.filter(t => t.customerId === profile.id).sort((a,b) => b.timestamp - a.timestamp);
-                
-                const hydratedProfile: LoyaltyProfile = { 
-                    ...profile, 
-                    activeCard: activeCard, // Hydrate active card details
-                    recentTransactions: transactions 
-                };
+      const cardNum = action.payload.toUpperCase();
 
-                // Apply perks immediately upon login
-                return {
-                    ...state,
-                    loyaltyProfile: hydratedProfile,
-                    items: recalculateCartWithPerks(state.items, hydratedProfile)
-                };
-            }
+      // 1. Find Card (Relational Lookup)
+      const activeCard = LOYALTY_CARDS.find(c => c.code === cardNum && c.status === 'ACTIVE');
+
+      if (activeCard) {
+        // 2. Find User
+        const profile = LOYALTY_PROFILES.find(p => p.id === activeCard.userId);
+
+        if (profile) {
+          // Hydrate Transactions (In Real Firebase, this is a subcollection query)
+          const transactions = LOYALTY_TRANSACTIONS.filter(t => t.customerId === profile.id).sort((a, b) => b.timestamp - a.timestamp);
+
+          const hydratedProfile: LoyaltyProfile = {
+            ...profile,
+            activeCard: activeCard, // Hydrate active card details
+            recentTransactions: transactions
+          };
+
+          // Apply perks immediately upon login
+          return {
+            ...state,
+            loyaltyProfile: hydratedProfile,
+            items: recalculateCartWithPerks(state.items, hydratedProfile)
+          };
         }
-        return state; // Not found
+      }
+      return state; // Not found
     }
     case 'LOGOUT_LOYALTY':
-        // Reset prices to normal
-        return {
-            ...state,
-            loyaltyProfile: null,
-            items: state.items.map(i => ({
-                ...i, 
-                finalPrice: i.originalPrice || (i.price + (i.selectedModifiers?.reduce((a,m)=>a+m.price,0)||0)),
-                isDiscounted: false
-            }))
-        };
+      // Reset prices to normal
+      return {
+        ...state,
+        loyaltyProfile: null,
+        items: state.items.map(i => ({
+          ...i,
+          finalPrice: i.originalPrice || (i.price + (i.selectedModifiers?.reduce((a, m) => a + m.price, 0) || 0)),
+          isDiscounted: false
+        }))
+      };
 
     case 'CONFIRM_TIER_UPGRADE': {
-        if (!state.upgradeTriggered) return state;
-        
-        const { profile, newTier } = state.upgradeTriggered;
-        
-        // In a real app, this would be a batch write: 
-        // 1. Deactivate old card
-        // 2. Create new card
-        // 3. Update User Tier
-        
-        const newCardCode = action.payload.newCardNumber.toUpperCase();
-        
-        // Simulate DB Update: Create New Card
-        const newCardId = `card_${Date.now()}`;
-        LOYALTY_CARDS.push({
-            id: newCardId,
-            code: newCardCode,
-            userId: profile.id,
-            status: 'ACTIVE',
-            issuedAt: Date.now()
-        });
-        
-        // Simulate DB Update: Deactivate Old Card
-        if (profile.activeCard) {
-            const oldCardIndex = LOYALTY_CARDS.findIndex(c => c.id === profile.activeCard!.id);
-            if (oldCardIndex !== -1) LOYALTY_CARDS[oldCardIndex].status = 'INACTIVE';
-        }
+      if (!state.upgradeTriggered) return state;
 
-        const updatedProfile: LoyaltyProfile = {
-            ...profile,
-            currentTierId: newTier,
-            activeCard: LOYALTY_CARDS.find(c => c.id === newCardId)
-        };
-        
-        // Update mock data reference (hack for demo persistence)
-        const profileIdx = LOYALTY_PROFILES.findIndex(p => p.id === profile.id);
-        if (profileIdx !== -1) LOYALTY_PROFILES[profileIdx].currentTierId = newTier;
+      const { profile, newTier } = state.upgradeTriggered;
 
-        return {
-            ...state,
-            loyaltyProfile: updatedProfile,
-            upgradeTriggered: null
-        };
+      // In a real app, this would be a batch write: 
+      // 1. Deactivate old card
+      // 2. Create new card
+      // 3. Update User Tier
+
+      const newCardCode = action.payload.newCardNumber.toUpperCase();
+
+      // Simulate DB Update: Create New Card
+      const newCardId = `card_${Date.now()}`;
+      LOYALTY_CARDS.push({
+        id: newCardId,
+        code: newCardCode,
+        userId: profile.id,
+        status: 'ACTIVE',
+        issuedAt: Date.now()
+      });
+
+      // Simulate DB Update: Deactivate Old Card
+      if (profile.activeCard) {
+        const oldCardIndex = LOYALTY_CARDS.findIndex(c => c.id === profile.activeCard!.id);
+        if (oldCardIndex !== -1) LOYALTY_CARDS[oldCardIndex].status = 'INACTIVE';
+      }
+
+      const updatedProfile: LoyaltyProfile = {
+        ...profile,
+        currentTierId: newTier,
+        activeCard: LOYALTY_CARDS.find(c => c.id === newCardId)
+      };
+
+      // Update mock data reference (hack for demo persistence)
+      const profileIdx = LOYALTY_PROFILES.findIndex(p => p.id === profile.id);
+      if (profileIdx !== -1) LOYALTY_PROFILES[profileIdx].currentTierId = newTier;
+
+      return {
+        ...state,
+        loyaltyProfile: updatedProfile,
+        upgradeTriggered: null
+      };
     }
-    
+
     case 'DISMISS_UPGRADE':
-        return { ...state, upgradeTriggered: null };
+      return { ...state, upgradeTriggered: null };
 
     case 'CLEAR_ORDER':
       if (state.editingOrder) {
-          return {
-             ...state,
-             items: [],
-             customer: null,
-             activeOrders: [...state.activeOrders, state.editingOrder].sort((a,b) => b.createdAt - a.createdAt),
-             editingOrder: null,
-             loyaltyProfile: null
-          };
+        return {
+          ...state,
+          items: [],
+          customer: null,
+          activeOrders: [...state.activeOrders, state.editingOrder].sort((a, b) => b.createdAt - a.createdAt),
+          editingOrder: null,
+          loyaltyProfile: null
+        };
       }
       return { ...state, items: [], customer: null, loyaltyProfile: null };
-    
+
     case 'REORDER_ORDERS':
       return { ...state, activeOrders: action.payload };
-    
+
     case 'UPDATE_ORDER': {
       const updatedOrder = action.payload;
       const existingOrder = state.activeOrders.find(o => o.id === updatedOrder.id);
-      
+
       if (!existingOrder) return state;
 
       if (updatedOrder.status === 'Kitchen' && !existingOrder.cookingStartedAt) {
-          updatedOrder.cookingStartedAt = Date.now();
+        updatedOrder.cookingStartedAt = Date.now();
       }
       if (updatedOrder.status === 'Ready' && !existingOrder.readyAt) {
-          updatedOrder.readyAt = Date.now();
+        updatedOrder.readyAt = Date.now();
       }
-      
+
       // OPTIMIZATION: If completed, move to completedOrders and remove from activeOrders
       if (updatedOrder.status === 'Completed') {
-          if (!existingOrder.completedAt) {
-              updatedOrder.completedAt = Date.now();
-          }
-          return {
-              ...state,
-              activeOrders: state.activeOrders.filter(o => o.id !== updatedOrder.id),
-              completedOrders: [updatedOrder, ...state.completedOrders]
-          };
+        if (!existingOrder.completedAt) {
+          updatedOrder.completedAt = Date.now();
+        }
+        return {
+          ...state,
+          activeOrders: state.activeOrders.filter(o => o.id !== updatedOrder.id),
+          completedOrders: [updatedOrder, ...state.completedOrders]
+        };
       }
 
       return {
@@ -218,26 +218,26 @@ const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
 
     case 'LOAD_ORDER_FOR_EDIT': {
       return {
-          ...state,
-          items: [...action.payload.items],
-          editingOrder: action.payload,
-          activeOrders: state.activeOrders.filter(o => o.id !== action.payload.id),
+        ...state,
+        items: [...action.payload.items],
+        editingOrder: action.payload,
+        activeOrders: state.activeOrders.filter(o => o.id !== action.payload.id),
       };
     }
 
     case 'CANCEL_EDIT': {
       if (!state.editingOrder) return state;
       return {
-          ...state,
-          items: [],
-          editingOrder: null,
-          activeOrders: [...state.activeOrders, state.editingOrder].sort((a,b) => b.createdAt - a.createdAt)
+        ...state,
+        items: [],
+        editingOrder: null,
+        activeOrders: [...state.activeOrders, state.editingOrder].sort((a, b) => b.createdAt - a.createdAt)
       };
     }
 
     case 'CREATE_ORDER': {
       const { method, amountPaid, isFullPayment, subtotal, tax, total, confirmationNumber, tenderedAmount, isLoyalty, tipAmount } = action.payload;
-      
+
       // --- LOYALTY EARNING LOGIC ---
       let updatedProfile = state.loyaltyProfile;
       let upgradeTriggered = null;
@@ -249,137 +249,137 @@ const orderReducer = (state: OrderState, action: OrderAction): OrderState => {
       const effectiveIsLoyalty = !!updatedProfile || (isLoyalty === true);
 
       if (updatedProfile) {
-          const currentTier = LOYALTY_TIERS.find(t => t.id === updatedProfile?.currentTierId);
-          const earnedPoints = subtotal * (currentTier?.cashbackRate || 0);
-          const today = new Date().toISOString().split('T')[0];
-          const hasVisitedToday = updatedProfile.lastVisitDate === today;
-          const newPunches = hasVisitedToday ? 0 : 1;
-          const newTotalPunches = updatedProfile.totalPunches + newPunches;
-          
-          // 1. Create Transaction Record (Event Source)
-          const newTransaction: LoyaltyTransaction = {
-              id: `tx_${Date.now()}`,
-              customerId: updatedProfile.id,
-              cardId: updatedProfile.activeCard?.id, // Track audit trail
-              orderId: newOrderId,
-              timestamp: Date.now(),
-              type: 'EARN',
-              points: earnedPoints,
-              description: `Points for Order #${newOrderId}`
+        const currentTier = LOYALTY_TIERS.find(t => t.id === updatedProfile?.currentTierId);
+        const earnedPoints = subtotal * (currentTier?.cashbackRate || 0);
+        const today = new Date().toISOString().split('T')[0];
+        const hasVisitedToday = updatedProfile.lastVisitDate === today;
+        const newPunches = hasVisitedToday ? 0 : 1;
+        const newTotalPunches = updatedProfile.totalPunches + newPunches;
+
+        // 1. Create Transaction Record (Event Source)
+        const newTransaction: LoyaltyTransaction = {
+          id: `tx_${Date.now()}`,
+          customerId: updatedProfile.id,
+          cardId: updatedProfile.activeCard?.id, // Track audit trail
+          orderId: newOrderId,
+          timestamp: Date.now(),
+          type: 'EARN',
+          points: earnedPoints,
+          description: `Points for Order #${newOrderId}`
+        };
+
+        // Push to Mock DB
+        LOYALTY_TRANSACTIONS.push(newTransaction);
+
+        // 2. Update Profile Cache
+        updatedProfile = {
+          ...updatedProfile,
+          currentPoints: updatedProfile.currentPoints + earnedPoints,
+          totalPunches: newTotalPunches,
+          lastVisitDate: today,
+          recentTransactions: [newTransaction, ...(updatedProfile.recentTransactions || [])]
+        };
+
+        const qualifiedTier = [...LOYALTY_TIERS]
+          .sort((a, b) => b.minPunches - a.minPunches)
+          .find(t => newTotalPunches >= t.minPunches);
+
+        if (qualifiedTier && qualifiedTier.id !== currentTier?.id && (qualifiedTier.minPunches > (currentTier?.minPunches || 0))) {
+          upgradeTriggered = {
+            prevTier: currentTier?.id || 'tier_starter',
+            newTier: qualifiedTier.id,
+            profile: updatedProfile
           };
-          
-          // Push to Mock DB
-          LOYALTY_TRANSACTIONS.push(newTransaction);
-          
-          // 2. Update Profile Cache
-          updatedProfile = {
-              ...updatedProfile,
-              currentPoints: updatedProfile.currentPoints + earnedPoints,
-              totalPunches: newTotalPunches,
-              lastVisitDate: today,
-              recentTransactions: [newTransaction, ...(updatedProfile.recentTransactions || [])]
-          };
+        }
 
-          const qualifiedTier = [...LOYALTY_TIERS]
-              .sort((a,b) => b.minPunches - a.minPunches)
-              .find(t => newTotalPunches >= t.minPunches);
+        const pIdx = LOYALTY_PROFILES.findIndex(p => p.id === updatedProfile?.id);
+        if (pIdx !== -1) LOYALTY_PROFILES[pIdx] = updatedProfile;
 
-          if (qualifiedTier && qualifiedTier.id !== currentTier?.id && (qualifiedTier.minPunches > (currentTier?.minPunches || 0))) {
-              upgradeTriggered = {
-                  prevTier: currentTier?.id || 'tier_starter',
-                  newTier: qualifiedTier.id,
-                  profile: updatedProfile
-              };
-          }
-
-          const pIdx = LOYALTY_PROFILES.findIndex(p => p.id === updatedProfile?.id);
-          if (pIdx !== -1) LOYALTY_PROFILES[pIdx] = updatedProfile;
-
-          snapshot = {
-              tierName: currentTier?.name || '',
-              tierColor: currentTier?.color || '',
-              pointsEarned: earnedPoints
-          };
+        snapshot = {
+          tierName: currentTier?.name || '',
+          tierColor: currentTier?.color || '',
+          pointsEarned: earnedPoints
+        };
       }
-      
+
       if (effectiveIsLoyalty && !snapshot) {
-          snapshot = {
-              tierName: 'VIP',
-              tierColor: 'yellow-400',
-              pointsEarned: 0
-          };
+        snapshot = {
+          tierName: 'VIP',
+          tierColor: 'yellow-400',
+          pointsEarned: 0
+        };
       }
       // --- END LOYALTY LOGIC ---
 
       // --- SYSTEM CONTEXT INJECTION ---
       const systemInfo = {
-          storeId: SYSTEM_CONFIG.storeId,
-          terminalId: SYSTEM_CONFIG.terminalId,
-          staffId: state.currentStaffId || 'unknown_staff'
+        storeId: SYSTEM_CONFIG.storeId,
+        terminalId: SYSTEM_CONFIG.terminalId,
+        staffId: state.currentStaffId || 'unknown_staff'
       };
 
       if (state.editingOrder) {
-          const originalOrder = state.editingOrder;
-          const newAmountPaid = originalOrder.amountPaid + amountPaid;
+        const originalOrder = state.editingOrder;
+        const newAmountPaid = originalOrder.amountPaid + amountPaid;
 
-          const updatedOrder: SavedOrder = {
-              ...originalOrder,
-              systemInfo: originalOrder.systemInfo || systemInfo, // Preserve orig context or add new
-              items: [...state.items],
-              subtotal,
-              tax,
-              total,
-              amountPaid: newAmountPaid,
-              paymentStatus: newAmountPaid >= total - 0.01 ? 'Paid' : 'Partial',
-              confirmationNumber: confirmationNumber || originalOrder.confirmationNumber,
-              tenderedAmount: tenderedAmount || originalOrder.tenderedAmount,
-              tipAmount: (tipAmount || 0) + (originalOrder.tipAmount || 0),
-              isLoyalty: effectiveIsLoyalty,
-              loyaltySnapshot: snapshot || originalOrder.loyaltySnapshot
-          };
+        const updatedOrder: SavedOrder = {
+          ...originalOrder,
+          systemInfo: originalOrder.systemInfo || systemInfo, // Preserve orig context or add new
+          items: [...state.items],
+          subtotal,
+          tax,
+          total,
+          amountPaid: newAmountPaid,
+          paymentStatus: newAmountPaid >= total - 0.01 ? 'Paid' : 'Partial',
+          confirmationNumber: confirmationNumber || originalOrder.confirmationNumber,
+          tenderedAmount: tenderedAmount || originalOrder.tenderedAmount,
+          tipAmount: (tipAmount || 0) + (originalOrder.tipAmount || 0),
+          isLoyalty: effectiveIsLoyalty,
+          loyaltySnapshot: snapshot || originalOrder.loyaltySnapshot
+        };
 
-          return {
-              ...state,
-              items: [],
-              customer: null,
-              editingOrder: null,
-              activeOrders: [...state.activeOrders, updatedOrder].sort((a,b) => b.createdAt - a.createdAt),
-              loyaltyProfile: null
-          };
+        return {
+          ...state,
+          items: [],
+          customer: null,
+          editingOrder: null,
+          activeOrders: [...state.activeOrders, updatedOrder].sort((a, b) => b.createdAt - a.createdAt),
+          loyaltyProfile: null
+        };
 
       } else {
-          const newOrder: SavedOrder = {
-            id: newOrderId,
-            table: 'Counter',
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            
-            // Inject System Context
-            systemInfo: systemInfo,
+        const newOrder: SavedOrder = {
+          id: newOrderId,
+          table: 'Counter',
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
 
-            createdAt: Date.now(),
-            items: [...state.items],
-            subtotal,
-            tax,
-            total,
-            amountPaid,
-            status: 'Pending',
-            paymentStatus: isFullPayment ? 'Paid' : 'Partial',
-            orderType: state.orderType,
-            confirmationNumber,
-            tenderedAmount,
-            tipAmount: tipAmount || 0,
-            isLoyalty: effectiveIsLoyalty,
-            loyaltySnapshot: snapshot
-          };
+          // Inject System Context
+          systemInfo: systemInfo,
 
-          return {
-            ...state,
-            items: [],
-            customer: null,
-            loyaltyProfile: null,
-            activeOrders: [newOrder, ...state.activeOrders],
-            upgradeTriggered: upgradeTriggered
-          };
+          createdAt: Date.now(),
+          items: [...state.items],
+          subtotal,
+          tax,
+          total,
+          amountPaid,
+          status: 'Pending',
+          paymentStatus: isFullPayment ? 'Paid' : 'Partial',
+          orderType: state.orderType,
+          confirmationNumber,
+          tenderedAmount,
+          tipAmount: tipAmount || 0,
+          isLoyalty: effectiveIsLoyalty,
+          loyaltySnapshot: snapshot
+        };
+
+        return {
+          ...state,
+          items: [],
+          customer: null,
+          loyaltyProfile: null,
+          activeOrders: [newOrder, ...state.activeOrders],
+          upgradeTriggered: upgradeTriggered
+        };
       }
     }
     default:
@@ -393,33 +393,33 @@ interface OrderProviderProps {
 
 export const OrderProvider = ({ children }: OrderProviderProps) => {
   const [state, dispatch] = useReducer(orderReducer, initialState, (initial) => {
-      try {
-          if (typeof window !== 'undefined') {
-              const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-              if (stored) {
-                  const parsed = JSON.parse(stored);
-                  // Migration check for old state without completedOrders
-                  if (!parsed.completedOrders) parsed.completedOrders = [];
-                  return parsed;
-              }
-          }
-      } catch (e) {
-          console.warn("Failed to load local storage state", e);
+    try {
+      if (typeof window !== 'undefined') {
+        const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          // Migration check for old state without completedOrders
+          if (!parsed.completedOrders) parsed.completedOrders = [];
+          return parsed;
+        }
       }
-      return initial;
+    } catch (e) {
+      console.warn("Failed to load local storage state", e);
+    }
+    return initial;
   });
 
   useEffect(() => {
-      try {
-          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-      } catch (e) {
-          console.warn("Failed to save state to local storage", e);
-      }
+    try {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      console.warn("Failed to save state to local storage", e);
+    }
   }, [state]);
 
   const { total, tax, grandTotal } = useMemo(() => {
     const subtotal = state.items.reduce((sum, item) => sum + (item.finalPrice !== undefined ? item.finalPrice : item.price), 0);
-    const taxAmount = state.taxStatus ? subtotal * 0.0825 : 0; 
+    const taxAmount = state.taxStatus ? subtotal * 0.0825 : 0;
     return {
       total: subtotal,
       tax: taxAmount,

@@ -1,19 +1,19 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface ScreensaverProps {
-    onWake: () => void;
+  onWake: () => void;
 }
 
 const Screensaver: React.FC<ScreensaverProps> = ({ onWake }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const bouncerRef = useRef<HTMLDivElement>(null);
-  
+
   // Use Refs for physics state to avoid React re-renders 60fps
   const pos = useRef({ x: 100, y: 100 });
   const vel = useRef({ dx: 1.5, dy: 1.5 }); // Speed
   const reqRef = useRef<number>(0);
-  
+
   // Double Tap Logic
   const lastTapRef = useRef<number>(0);
 
@@ -61,42 +61,42 @@ const Screensaver: React.FC<ScreensaverProps> = ({ onWake }) => {
     return () => cancelAnimationFrame(reqRef.current);
   }, []);
 
-  const handleTouch = (e: React.TouchEvent) => {
-      const now = Date.now();
-      const DOUBLE_TAP_DELAY = 300;
-      
-      if (now - lastTapRef.current < DOUBLE_TAP_DELAY) {
-          onWake();
-      }
-      lastTapRef.current = now;
+  const handleTouch = () => {
+    const now = Date.now();
+    const DOUBLE_TAP_DELAY = 300;
+
+    if (now - lastTapRef.current < DOUBLE_TAP_DELAY) {
+      onWake();
+    }
+    lastTapRef.current = now;
   };
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="fixed inset-0 z-[100] bg-black cursor-none overflow-hidden animate-in fade-in duration-700 select-none"
       onDoubleClick={onWake}
       onTouchEnd={handleTouch}
     >
-      <div 
-        ref={bouncerRef} 
+      <div
+        ref={bouncerRef}
         className="absolute top-0 left-0 flex items-center p-6 bg-zinc-900/40 rounded-3xl border border-zinc-800/50 shadow-[0_0_50px_rgba(132,204,22,0.1)] backdrop-blur-sm pointer-events-none"
         style={{ willChange: 'transform' }}
       >
-         <div className="h-16 w-16 bg-lime-400 rounded-2xl flex items-center justify-center mr-5 shadow-[0_0_25px_rgba(132,204,22,0.4)]">
-            <span className="font-mono font-bold text-zinc-950 text-3xl">H</span>
-         </div>
-         <div>
-             <span className="font-bold text-3xl tracking-tight text-zinc-100">HYPHAE<span className="text-lime-400">.POS</span></span>
-             <div className="text-zinc-500 text-xs font-mono uppercase tracking-widest mt-1 flex items-center gap-2">
-                 <div className="w-2 h-2 bg-lime-500 rounded-full animate-pulse" />
-                 System Standby
-             </div>
-         </div>
+        <div className="h-16 w-16 bg-lime-400 rounded-2xl flex items-center justify-center mr-5 shadow-[0_0_25px_rgba(132,204,22,0.4)]">
+          <span className="font-mono font-bold text-zinc-950 text-3xl">H</span>
+        </div>
+        <div>
+          <span className="font-bold text-3xl tracking-tight text-zinc-100">HYPHAE<span className="text-lime-400">.POS</span></span>
+          <div className="text-zinc-500 text-xs font-mono uppercase tracking-widest mt-1 flex items-center gap-2">
+            <div className="w-2 h-2 bg-lime-500 rounded-full animate-pulse" />
+            System Standby
+          </div>
+        </div>
       </div>
-      
+
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-zinc-600 font-mono text-xs uppercase tracking-[0.2em] opacity-50 animate-pulse pointer-events-none">
-          Double Tap to Unlock
+        Double Tap to Unlock
       </div>
     </div>
   );

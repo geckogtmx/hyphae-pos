@@ -5,6 +5,12 @@ interface UseLongPressOptions {
   delay?: number;
 }
 
+const preventDefault = (event: Event) => {
+  if (event instanceof TouchEvent && event.touches.length < 2 && event.preventDefault) {
+    event.preventDefault();
+  }
+};
+
 export const useLongPress = (
   onLongPress: () => void,
   onClick: () => void,
@@ -42,11 +48,7 @@ export const useLongPress = (
     [shouldPreventDefault, onClick]
   );
 
-  const preventDefault = (event: Event) => {
-    if (event instanceof TouchEvent && event.touches.length < 2 && event.preventDefault) {
-      event.preventDefault();
-    }
-  };
+
 
   return {
     onMouseDown: (e: React.MouseEvent) => start(e),

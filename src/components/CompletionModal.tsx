@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SavedOrder } from '../types';
 import { calculatePackagingFallback } from '../utils/packagingCalculator';
 import { formatSecs, getDurationSecs } from '../utils/orderHelpers';
@@ -13,9 +12,7 @@ interface CompletionModalProps {
 
 const CompletionModal: React.FC<CompletionModalProps> = ({ order, onClose, onComplete }) => {
     const [tipInput, setTipInput] = useState('');
-    const [packagingInventory, setPackagingInventory] = useState<Record<string, number> | null>(null);
-
-    useEffect(() => {
+    const packagingInventory = React.useMemo(() => {
         try {
             const payload = {
                 orderId: order.id,
@@ -29,10 +26,10 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ order, onClose, onCom
                 }))
             };
             const result = calculatePackagingFallback(payload);
-            setPackagingInventory(result.packagingUsed);
+            return result.packagingUsed;
         } catch (e) {
             console.error("Packaging Calc Failed", e);
-            setPackagingInventory({});
+            return {};
         }
     }, [order]);
 
@@ -57,10 +54,10 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ order, onClose, onCom
                     <div className="text-xs font-bold uppercase text-zinc-500 mb-6">{order.table}</div>
 
                     <div className="flex-1 overflow-y-auto pr-2 flex flex-col gap-6">
-                        {packagingInventory && (
+                        {packagingInventory && Object.keys(packagingInventory).length > 0 && (
                             <div className="p-3 bg-zinc-900 border border-zinc-800 rounded-xl">
                                 <span className="text-[10px] font-bold uppercase text-lime-500 block mb-2 flex items-center">
-                                    <Package size={12} className="mr-1"/> Packaging Required
+                                    <Package size={12} className="mr-1" /> Packaging Required
                                 </span>
                                 <div className="grid grid-cols-1 gap-2">
                                     {Object.entries(packagingInventory).map(([sku, count]) => (
@@ -101,9 +98,9 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ order, onClose, onCom
 
                     <div className="flex-1 flex flex-col items-center justify-center max-w-sm mx-auto w-full">
                         <div className="w-full relative mb-6">
-                            <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={24}/>
-                            <input 
-                                type="text" 
+                            <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500" size={24} />
+                            <input
+                                type="text"
                                 value={tipInput}
                                 readOnly
                                 placeholder="0.00"
@@ -113,8 +110,8 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ order, onClose, onCom
 
                         <div className="grid grid-cols-3 gap-3 w-full mb-6">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9, '.', 0].map(n => (
-                                <button 
-                                    key={n} 
+                                <button
+                                    key={n}
                                     onClick={() => handleTipInput(n.toString())}
                                     className="h-16 bg-zinc-800 rounded-xl text-2xl font-bold text-white hover:bg-zinc-700 active:bg-lime-500 active:text-black transition-colors"
                                 >
@@ -126,7 +123,7 @@ const CompletionModal: React.FC<CompletionModalProps> = ({ order, onClose, onCom
                             </button>
                         </div>
 
-                        <button 
+                        <button
                             onClick={handleFinalize}
                             className="w-full py-5 bg-lime-500 hover:bg-lime-400 text-zinc-900 rounded-2xl font-bold text-xl uppercase tracking-widest shadow-[0_0_20px_rgba(132,204,22,0.4)] active:scale-[0.98] transition-all flex items-center justify-center"
                         >

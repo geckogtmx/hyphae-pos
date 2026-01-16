@@ -19,15 +19,16 @@
 12. [x] **Fix Visual Regression**: Identify and patch `bg-white` artifacts to `bg-ink-xxx`.
 
 ## Phase 1: Testing & Quality Assurance
-13. [ ] **Install Test Runner**: Install `vitest`, `jsdom`, and `@testing-library/react`.
-14. [ ] **Configure Vitest**: Create `vitest.config.ts` (shared or separate from Vite).
-15. [ ] **Sanity Test**: Write a basic rendering test for `<App />`.
-16. [ ] **Linting Standards**: Install `eslint` and `prettier` with project-specific rules.
+13. [x] **Install Test Runner**: Install `vitest`, `jsdom`, and `@testing-library/react`.
+14. [x] **Configure Vitest**: Create `vitest.config.ts` (shared or separate from Vite).
+15. [x] **Sanity Test**: Write a basic rendering test for `<App />`.
+16. [x] **Linting Standards**: Install `eslint` and `prettier` with project-specific rules.
 17. [ ] **Pre-commit Hooks**: Setup `husky` (optional) or `lint-staged`.
+18. [x] **UI Unit Tests**: Create and test `Button` component (CVA) and `ErrorBoundary`.
+19. [x] **Environment Config**: Create `.env.example` standardizing API keys and flags.
 
 ## Phase 2: Architecture & Backend Prep
-18. [ ] **Environment Config**: Create `.env.example` standardizing API keys and flags.
-19. [ ] **Directory Re-structure**: Move `components` to `src/components`, `hooks` to `src/hooks` (if not already strictly enforced).
-20. [ ] **Database Setup**: Install `drizzle-orm` and `better-sqlite3`.
-21. [ ] **Schema Definition**: Create initial Drizzle schema for `Orders` and `Menu`.
-22. [ ] **Migration Test**: Run a local SQLite migration to prove DB connectivity.
+20. [ ] **Directory Re-structure**: Move `components` to `src/components`, `hooks` to `src/hooks` (if not already strictly enforced).
+21. [ ] **Database Setup**: Install `drizzle-orm` and `better-sqlite3`.
+22. [ ] **Schema Definition**: Create initial Drizzle schema for `Orders` and `Menu`.
+23. [ ] **Migration Test**: Run a local SQLite migration to prove DB connectivity.
