@@ -28,7 +28,7 @@
 19. [x] **Environment Config**: Create `.env.example` standardizing API keys and flags.
 
 ## Phase 2: Architecture & Backend Prep
-20. [ ] **Directory Re-structure**: Move `components` to `src/components`, `hooks` to `src/hooks` (if not already strictly enforced).
-21. [ ] **Database Setup**: Install `drizzle-orm` and `better-sqlite3`.
-22. [ ] **Schema Definition**: Create initial Drizzle schema for `Orders` and `Menu`.
-23. [ ] **Migration Test**: Run a local SQLite migration to prove DB connectivity.
+31. [x] **Directory Re-structure**: Move `components` to `src/components`, `hooks` to `src/hooks` (if not already strictly enforced).
+32. [x] **Database Setup**: Install `drizzle-orm` and `@libsql/client` (switched from better-sqlite3 due to build issues).
+33. [x] **Schema Definition**: Create initial Drizzle schema for `Orders` and `Menu`.
+34. [x] **Migration Test**: Run a local SQLite migration to prove DB connectivity.
