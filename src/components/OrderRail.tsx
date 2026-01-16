@@ -123,7 +123,7 @@ const OrderRail: React.FC<OrderRailProps> = ({ onLayoutChange }) => {
 
   return (
     <div 
-        className="h-full flex flex-col bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 relative"
+        className="h-full flex flex-col bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800 relative"
     >
         {completionOrder && (
             <CompletionModal 
@@ -149,7 +149,7 @@ const OrderRail: React.FC<OrderRailProps> = ({ onLayoutChange }) => {
             />
         )}
 
-        <div className="px-2 py-2 flex items-center justify-start gap-2 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shrink-0">
+        <div className="px-2 py-2 flex items-center justify-start gap-2 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 shrink-0">
              <button 
                 onClick={() => setShowSummary(true)} 
                 className="h-10 flex-1 flex items-center justify-center rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-orange-500 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-200 dark:hover:border-orange-500/50 transition-all active:scale-95" 
@@ -178,7 +178,7 @@ const OrderRail: React.FC<OrderRailProps> = ({ onLayoutChange }) => {
 
             {readyOrders.length > 0 && (
                 <>
-                    <div className="sticky top-0 z-20 bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
+                    <div className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
                         <div className="flex items-center justify-between px-3 py-2 bg-lime-50 dark:bg-lime-900/20 border-l-4 border-l-lime-500">
                             <span className="text-xs font-bold uppercase tracking-widest text-lime-700 dark:text-lime-400">Ready</span>
                             <span className="text-[10px] font-mono bg-lime-200 dark:bg-lime-900/50 text-lime-800 dark:text-lime-200 px-1.5 py-0.5 rounded">{readyOrders.length}</span>
@@ -216,7 +216,7 @@ const OrderRail: React.FC<OrderRailProps> = ({ onLayoutChange }) => {
 
             {cookingOrders.length > 0 && (
                 <>
-                    <div className="sticky top-0 z-10 bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
+                    <div className="sticky top-0 z-10 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
                         <div className="flex items-center justify-between px-3 py-2 bg-orange-50 dark:bg-orange-900/20 border-l-4 border-l-orange-500">
                             <span className="text-xs font-bold uppercase tracking-widest text-orange-700 dark:text-orange-400">Kitchen</span>
                             <span className="text-[10px] font-mono bg-orange-200 dark:bg-orange-900/50 text-orange-800 dark:text-orange-200 px-1.5 py-0.5 rounded">{cookingOrders.length}</span>
@@ -254,7 +254,7 @@ const OrderRail: React.FC<OrderRailProps> = ({ onLayoutChange }) => {
 
             {queueOrders.length > 0 && (
                 <>
-                    <div className="sticky top-0 z-10 bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
+                    <div className="sticky top-0 z-10 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shadow-sm">
                         <div className="flex items-center justify-between px-3 py-2 bg-zinc-100 dark:bg-zinc-800/50 border-l-4 border-l-zinc-400 dark:border-l-zinc-600">
                             <span className="text-xs font-bold uppercase tracking-widest text-zinc-600 dark:text-zinc-400">Pending</span>
                             <span className="text-[10px] font-mono bg-zinc-200 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 px-1.5 py-0.5 rounded">{queueOrders.length}</span>

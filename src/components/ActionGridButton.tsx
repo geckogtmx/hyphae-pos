@@ -45,14 +45,14 @@ const ActionGridButton: React.FC<ActionGridButtonProps> = ({
 
   const bgColor = selected
     ? 'bg-lime-50 dark:bg-lime-400/10' 
-    : 'bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800';
+    : 'bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800';
 
   const shadowClass = selected ? 'shadow-sm dark:shadow-[0_0_15px_rgba(132,204,22,0.15)]' : 'shadow-sm dark:shadow-none';
 
   return (
     <div className="relative w-full h-full">
       {showModal && (
-        <div className="absolute inset-0 z-50 flex flex-col bg-white dark:bg-zinc-900 border-2 border-lime-500 dark:border-lime-400 animate-in fade-in zoom-in duration-100 shadow-lg rounded-xl overflow-hidden">
+        <div className="absolute inset-0 z-50 flex flex-col bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-2 border-lime-500 dark:border-lime-400 animate-in fade-in zoom-in duration-100 shadow-lg rounded-xl overflow-hidden">
           <button onClick={() => handleVariationSelect('No')} className="flex-1 bg-red-100 dark:bg-red-900/50 hover:bg-red-200 dark:hover:bg-red-800 text-red-700 dark:text-red-200 font-bold uppercase tracking-widest text-xs border-b border-zinc-200 dark:border-zinc-800">NO</button>
           <button onClick={() => handleVariationSelect('Side')} className="flex-1 bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-800 text-blue-700 dark:text-blue-200 font-bold uppercase tracking-widest text-xs border-b border-zinc-200 dark:border-zinc-800">SIDE</button>
           <button onClick={() => handleVariationSelect('Extra')} className="flex-1 bg-lime-100 dark:bg-lime-900/50 hover:bg-lime-200 dark:hover:bg-lime-800 text-lime-700 dark:text-lime-200 font-bold uppercase tracking-widest text-xs">EXTRA</button>

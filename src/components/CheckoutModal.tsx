@@ -185,7 +185,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                     const count = group.items.length;
                     
                     return (
-                    <div key={`${group.key}-${idx}`} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex flex-col shadow-sm relative group hover:border-lime-500/50 transition-all h-full min-h-[180px]">
+                    <div key={`${group.key}-${idx}`} className="bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex flex-col shadow-sm relative group hover:border-lime-500/50 transition-all h-full min-h-[180px]">
                         <div className="flex justify-between items-start mb-3 border-b border-zinc-100 dark:border-zinc-800/50 pb-2">
                             <div className="flex items-center min-w-0 pr-2">
                                 {count > 1 && (
@@ -225,7 +225,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                                                 const group = item.modifierGroups?.find(g => g.id === m.groupId);
                                                 return group?.dependency?.groupId === subItem.groupId;
                                             }).map(nestedMod => (
-                                                <span key={nestedMod.optionId} className="text-[10px] px-1.5 bg-white dark:bg-zinc-800 text-zinc-500 rounded border border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
+                                                <span key={nestedMod.optionId} className="text-[10px] px-1.5 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-800 text-zinc-500 rounded border border-zinc-200 dark:border-zinc-700 whitespace-nowrap">
                                                     {nestedMod.name}
                                                 </span>
                                             ))}
@@ -274,7 +274,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                  )}
              </div>
 
-             <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 px-8 py-4 rounded-xl border border-zinc-100 dark:border-zinc-800 shadow-sm">
+             <div className="flex items-center gap-4 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 px-8 py-4 rounded-xl border border-zinc-100 dark:border-zinc-800 shadow-sm">
                  <span className="text-base font-bold text-zinc-400 uppercase tracking-widest text-right leading-tight">
                      {isRefund ? 'Refund Due' : 'Total Due'}
                  </span>
@@ -303,7 +303,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                 </button>
             ))}
             {!isRefund && (
-                <button onClick={() => handleMethodSelect('Split')} className="h-64 bg-white dark:bg-zinc-900 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-lime-500 dark:hover:border-lime-400 rounded-3xl flex flex-col items-center justify-center p-8 transition-all group">
+                <button onClick={() => handleMethodSelect('Split')} className="h-64 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-lime-500 dark:hover:border-lime-400 rounded-3xl flex flex-col items-center justify-center p-8 transition-all group">
                     <Split size={80} className="text-zinc-400 dark:text-zinc-500 group-hover:text-lime-600 dark:group-hover:text-lime-400 mb-6" />
                     <span className="text-3xl font-bold uppercase tracking-widest text-zinc-700 dark:text-zinc-300 group-hover:text-black dark:group-hover:text-white">Partial / Split</span>
                 </button>
@@ -340,7 +340,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                     value={activeInput === 'PRIMARY' ? tenderedValue : tipValue} 
                     readOnly 
                     placeholder="0.00"
-                    className={`w-full bg-white dark:bg-zinc-900 border-2 rounded-2xl py-5 pl-12 pr-6 text-4xl font-mono text-black dark:text-white outline-none cursor-default shadow-sm transition-colors text-right ${activeInput === 'PRIMARY' ? 'border-lime-500 dark:border-lime-400' : 'border-zinc-200 dark:border-zinc-700 focus:border-lime-500'}`} 
+                    className={`w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-2 rounded-2xl py-5 pl-12 pr-6 text-4xl font-mono text-black dark:text-white outline-none cursor-default shadow-sm transition-colors text-right ${activeInput === 'PRIMARY' ? 'border-lime-500 dark:border-lime-400' : 'border-zinc-200 dark:border-zinc-700 focus:border-lime-500'}`} 
                 />
             </div>
             
@@ -349,7 +349,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                     <button
                         key={key}
                         onClick={() => handleKeypadInput(key)}
-                        className="h-20 bg-white dark:bg-zinc-900 border-b-4 border-zinc-200 dark:border-zinc-700 rounded-2xl text-3xl font-bold text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 active:border-b-0 active:translate-y-1 active:bg-lime-50 dark:active:bg-lime-900/20 active:text-lime-600 dark:active:text-lime-400 transition-all shadow-sm"
+                        className="h-20 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-b-4 border-zinc-200 dark:border-zinc-700 rounded-2xl text-3xl font-bold text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 active:border-b-0 active:translate-y-1 active:bg-lime-50 dark:active:bg-lime-900/20 active:text-lime-600 dark:active:text-lime-400 transition-all shadow-sm"
                     >
                         {key}
                     </button>
@@ -448,7 +448,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                     value={splitInput} 
                     readOnly 
                     placeholder="0.00" 
-                    className="w-full bg-white dark:bg-zinc-950 border-2 border-zinc-200 dark:border-zinc-700 rounded-3xl py-6 pl-16 pr-24 text-5xl font-mono text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none text-center placeholder-zinc-300 dark:placeholder-zinc-700" 
+                    className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-2 border-zinc-200 dark:border-zinc-700 rounded-3xl py-6 pl-16 pr-24 text-5xl font-mono text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none text-center placeholder-zinc-300 dark:placeholder-zinc-700" 
                 />
                 <button onClick={handleSetRemainder} className="absolute right-4 top-1/2 -translate-y-1/2 px-3 py-2 bg-zinc-100 dark:bg-zinc-800 rounded-xl text-xs font-bold uppercase text-zinc-500 dark:text-zinc-400 hover:text-lime-600 dark:hover:text-lime-400 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-600 transition-colors">Max</button>
             </div>
@@ -458,7 +458,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                     <button 
                         key={m} 
                         onClick={() => setPartialMethod(m as PaymentMethod)} 
-                        className={`py-4 rounded-xl border-2 font-bold uppercase text-xs flex flex-col items-center justify-center transition-all ${partialMethod === m ? 'bg-lime-50 dark:bg-lime-900/20 border-lime-500 dark:border-lime-400 text-lime-700 dark:text-lime-400 shadow-sm' : 'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}
+                        className={`py-4 rounded-xl border-2 font-bold uppercase text-xs flex flex-col items-center justify-center transition-all ${partialMethod === m ? 'bg-lime-50 dark:bg-lime-900/20 border-lime-500 dark:border-lime-400 text-lime-700 dark:text-lime-400 shadow-sm' : 'bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}
                     >
                         {m === 'Cash' && <Banknote size={24} className="mb-1" />}
                         {m === 'Clip' && <CreditCard size={24} className="mb-1" />}
@@ -473,7 +473,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
                     <button
                         key={key}
                         onClick={() => handleSplitNumpad(key)}
-                        className="bg-white dark:bg-zinc-950 border-b-4 border-zinc-200 dark:border-zinc-800 rounded-xl text-2xl font-bold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 active:border-b-0 active:translate-y-1 transition-all shadow-sm"
+                        className="bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-b-4 border-zinc-200 dark:border-zinc-800 rounded-xl text-2xl font-bold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 active:border-b-0 active:translate-y-1 transition-all shadow-sm"
                     >
                         {key}
                     </button>
@@ -488,14 +488,14 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
 
             <button 
                 onClick={handleAddSplitPayment}
-                className="mt-6 w-full h-16 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-2xl font-bold uppercase tracking-widest text-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center"
+                className="mt-6 w-full h-16 bg-zinc-900 dark:bg-zinc-50 dark:bg-zinc-900 text-white dark:text-zinc-900 rounded-2xl font-bold uppercase tracking-widest text-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-lg flex items-center justify-center"
             >
                 <Plus size={24} className="mr-2"/> Add Payment
             </button>
         </div>
 
         <div className="flex flex-col h-full">
-            <div className="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 flex flex-col mb-6 overflow-hidden">
+            <div className="flex-1 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 flex flex-col mb-6 overflow-hidden">
                 <h3 className="text-zinc-400 font-bold uppercase tracking-widest mb-4 text-center text-sm border-b border-zinc-100 dark:border-zinc-800 pb-4">Transaction Ledger</h3>
                 
                 <div className="flex-1 overflow-y-auto space-y-2 pr-2">
@@ -560,7 +560,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 animate-in fade-in duration-200">
       <div className="absolute inset-0 bg-black/80 dark:bg-black/95 backdrop-blur-xl" onClick={onClose} />
-      <div className="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 w-[95%] h-[90vh] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden transition-colors duration-300">
+      <div className="relative bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 w-[95%] h-[90vh] rounded-[2rem] shadow-2xl flex flex-col overflow-hidden transition-colors duration-300">
          <div className="h-20 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-8 bg-zinc-50 dark:bg-zinc-950 shrink-0">
             <h2 className="text-2xl font-bold text-zinc-900 dark:text-white tracking-widest uppercase flex items-center">
                 {step === 'ORDER_REVIEW' ? 'Review Order' : 'Checkout'}
@@ -569,7 +569,7 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ isOpen, onClose, subtotal
             </h2>
             <button onClick={onClose} className="p-3 bg-zinc-100 dark:bg-zinc-800 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors shadow-sm"><X size={24} /></button>
          </div>
-         <div className="flex-1 bg-white dark:bg-zinc-900 min-h-0 overflow-hidden flex flex-col">
+         <div className="flex-1 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 min-h-0 overflow-hidden flex flex-col">
             {step === 'ORDER_REVIEW' && renderOrderReview()}
             {step === 'METHOD_SELECT' && renderMethodSelect()}
             {step === 'CONFIRM_STANDARD' && renderStandardConfirm()}

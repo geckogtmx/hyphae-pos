@@ -101,7 +101,7 @@ const LoyaltyScreen: React.FC<LoyaltyScreenProps> = ({ onGuestAccess, onLoginSuc
                 <div className="flex gap-8 w-full max-w-4xl h-96">
                     <button 
                         onClick={onGuestAccess}
-                        className="flex-1 bg-white dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-3xl flex flex-col items-center justify-center group transition-all duration-300 shadow-xl dark:shadow-2xl relative overflow-hidden"
+                        className="flex-1 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-3xl flex flex-col items-center justify-center group transition-all duration-300 shadow-xl dark:shadow-2xl relative overflow-hidden"
                     >
                         <div className="w-32 h-32 bg-blue-100 dark:bg-blue-600 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
                             <User size={56} className="text-blue-600 dark:text-white fill-current" strokeWidth={1.5} />
@@ -112,7 +112,7 @@ const LoyaltyScreen: React.FC<LoyaltyScreenProps> = ({ onGuestAccess, onLoginSuc
 
                     <button 
                         onClick={() => setShowLoyaltyInput(true)}
-                        className="flex-1 bg-white dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 hover:border-lime-500/50 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-3xl flex flex-col items-center justify-center group transition-all duration-300 shadow-xl dark:shadow-2xl relative overflow-hidden"
+                        className="flex-1 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-2 border-zinc-200 dark:border-zinc-800 hover:border-lime-500/50 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-3xl flex flex-col items-center justify-center group transition-all duration-300 shadow-xl dark:shadow-2xl relative overflow-hidden"
                     >
                         <div className="w-32 h-32 bg-red-100 dark:bg-red-600 rounded-full flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
                             <Crown size={56} className="text-red-600 dark:text-white fill-current" strokeWidth={1.5} />
@@ -124,7 +124,7 @@ const LoyaltyScreen: React.FC<LoyaltyScreenProps> = ({ onGuestAccess, onLoginSuc
             ) : (
                 <div className="flex flex-col items-center w-full max-w-md animate-in zoom-in-95 duration-200 h-full justify-center">
                     {lookupStatus === 'FOUND' && previewProfile ? (
-                        <div className="w-full bg-white dark:bg-zinc-900 rounded-3xl p-6 border-2 border-lime-500/50 shadow-2xl flex flex-col items-center animate-in slide-in-from-bottom duration-300">
+                        <div className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 rounded-3xl p-6 border-2 border-lime-500/50 shadow-2xl flex flex-col items-center animate-in slide-in-from-bottom duration-300">
                             <div className="h-16 w-16 bg-lime-100 dark:bg-lime-900/30 rounded-full flex items-center justify-center mb-4 text-lime-600 dark:text-lime-400 shadow-lg">
                                 <CheckCircle size={32} />
                             </div>
@@ -183,7 +183,7 @@ const LoyaltyScreen: React.FC<LoyaltyScreenProps> = ({ onGuestAccess, onLoginSuc
                             <div className="w-full flex items-center gap-4 mb-6">
                                     <button 
                                     onClick={handleBack}
-                                    className="h-14 w-14 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                                    className="h-14 w-14 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                                     title={isAddMode ? "Cancel" : "Back"}
                                     >
                                         <ArrowLeft size={24} />
@@ -199,7 +199,7 @@ const LoyaltyScreen: React.FC<LoyaltyScreenProps> = ({ onGuestAccess, onLoginSuc
                                     </div>
                             </div>
 
-                            <div className="w-full bg-white dark:bg-zinc-900/50 rounded-2xl p-4 border border-zinc-200 dark:border-zinc-800 shadow-2xl">
+                            <div className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900/50 rounded-2xl p-4 border border-zinc-200 dark:border-zinc-800 shadow-2xl">
                                 <div className="grid grid-cols-5 gap-2 mb-4">
                                     {KEYBOARD_NUMBERS.map(key => (
                                         <button
@@ -217,7 +217,7 @@ const LoyaltyScreen: React.FC<LoyaltyScreenProps> = ({ onGuestAccess, onLoginSuc
                                             <button
                                                 key={key}
                                                 onClick={() => handleLoyaltyCardInput(key)}
-                                                className="h-12 bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 active:bg-lime-400/20 active:border-lime-400 rounded-lg text-lg font-bold text-zinc-700 dark:text-zinc-200 hover:text-black dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-600 font-mono shadow-sm transition-all"
+                                                className="h-12 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 active:bg-lime-400/20 active:border-lime-400 rounded-lg text-lg font-bold text-zinc-700 dark:text-zinc-200 hover:text-black dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-600 font-mono shadow-sm transition-all"
                                             >
                                                 {key}
                                             </button>

@@ -95,7 +95,7 @@ const AppContent = () => {
 
         {/* --- GLOBAL HEADER (Desktop) --- */}
         {!isMobile && (
-           <header className="h-auto min-h-[3.5rem] bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 shrink-0 z-50 transition-colors duration-300 relative pt-[env(safe-area-inset-top)]">
+           <header className="h-auto min-h-[3.5rem] bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 shrink-0 z-50 transition-colors duration-300 relative pt-[env(safe-area-inset-top)]">
               
               {/* LEFT: LOGO */}
               <div 
@@ -192,7 +192,7 @@ const AppContent = () => {
 
         {/* --- MOBILE HEADER --- */}
         {isMobile && (
-          <div className="h-auto min-h-[3.5rem] bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 shrink-0 z-50 pt-[env(safe-area-inset-top)]">
+          <div className="h-auto min-h-[3.5rem] bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between px-4 shrink-0 z-50 pt-[env(safe-area-inset-top)]">
             <button 
                 onClick={() => setIsMobileMenuOpen(true)}
                 className="p-2 -ml-2 text-lime-600 dark:text-lime-400"
@@ -218,7 +218,7 @@ const AppContent = () => {
                         flex: `${layoutRatio} 1 0%`,
                         order: isSwapped ? 3 : 1 
                     }}
-                    className={`h-full bg-white dark:bg-zinc-950 transition-all duration-300 ease-in-out overflow-hidden relative rounded-2xl border border-zinc-200 dark:border-zinc-800 ${layoutRatio < 0.05 ? 'w-0 border-none opacity-0 !flex-none' : 'opacity-100'}`}
+                    className={`h-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 transition-all duration-300 ease-in-out overflow-hidden relative rounded-2xl border border-zinc-200 dark:border-zinc-800 ${layoutRatio < 0.05 ? 'w-0 border-none opacity-0 !flex-none' : 'opacity-100'}`}
                 >
                    <div className="w-full h-full min-w-[250px]">
                         <OrderRail onLayoutChange={handleLayoutChange} />
@@ -241,7 +241,7 @@ const AppContent = () => {
                         flex: `${1 - layoutRatio} 1 0%`,
                         order: isSwapped ? 1 : 3 
                     }} 
-                    className={`h-full min-w-0 bg-white dark:bg-zinc-950 relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 transition-all duration-300 ease-in-out ${layoutRatio > 0.95 ? 'w-0 border-none opacity-0 !flex-none' : 'opacity-100'}`}
+                    className={`h-full min-w-0 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 relative rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 transition-all duration-300 ease-in-out ${layoutRatio > 0.95 ? 'w-0 border-none opacity-0 !flex-none' : 'opacity-100'}`}
                 >
                     <Stage activeConceptId={activeConceptId} onLayoutChange={handleLayoutChange} />
                 </div>
@@ -250,7 +250,7 @@ const AppContent = () => {
             ) : (
             <div className="flex-1 relative w-full h-full">
                 <div className={`
-                    fixed inset-y-0 left-0 z-40 w-[85%] bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800
+                    fixed inset-y-0 left-0 z-40 w-[85%] bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800
                     transform transition-transform duration-300 ease-in-out shadow-2xl
                     ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
                 `}>
@@ -293,7 +293,7 @@ const AppContent = () => {
                 )}
 
                 {activeModal === 'SettingsMenu' && (
-                     <div className="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-1 rounded-xl shadow-2xl w-64 animate-in zoom-in-95 duration-100">
+                     <div className="relative bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-1 rounded-xl shadow-2xl w-64 animate-in zoom-in-95 duration-100">
                         <div className="flex flex-col space-y-1">
                             <button 
                                 onClick={handleSettingsClick}
@@ -318,7 +318,7 @@ const AppContent = () => {
                 )}
 
                 {activeModal === 'ModalitySelector' && (
-                    <div className="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 rounded-xl shadow-2xl w-full max-w-sm text-center animate-in zoom-in-95 duration-100">
+                    <div className="relative bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 rounded-xl shadow-2xl w-full max-w-sm text-center animate-in zoom-in-95 duration-100">
                         <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4 uppercase tracking-widest border-b border-zinc-200 dark:border-zinc-800 pb-2">Select Modality</h3>
                         <div className="flex flex-col space-y-2">
                             {concepts.map(concept => (
@@ -351,7 +351,7 @@ const AppContent = () => {
                 )}
 
                 {['Active Register', 'Customers'].includes(activeModal || '') && (
-                    <div className="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-xl shadow-2xl w-full max-w-md text-center transform transition-all scale-100">
+                    <div className="relative bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-8 rounded-xl shadow-2xl w-full max-w-md text-center transform transition-all scale-100">
                         <div className="mx-auto w-12 h-12 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mb-4 text-lime-600 dark:text-lime-400">
                             <AlertCircle size={24} />
                         </div>

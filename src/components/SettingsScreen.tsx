@@ -134,10 +134,10 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
   const updateRootItem = (updates: Partial<Product>) => { if (activeSequence) updateSequence({ ...activeSequence, ...updates }); };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 top-14 bg-white dark:bg-zinc-950 z-[45] flex flex-col animate-in slide-in-from-bottom duration-300 transition-colors">
+    <div className="fixed inset-x-0 bottom-0 top-14 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 z-[45] flex flex-col animate-in slide-in-from-bottom duration-300 transition-colors">
       
       {/* HEADER */}
-      <div className="h-16 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-between px-6 shrink-0 z-20">
+      <div className="h-16 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 flex items-center justify-between px-6 shrink-0 z-20">
          <div className="flex items-center space-x-4">
             <div className="h-10 w-10 bg-zinc-100 dark:bg-zinc-800 rounded-xl flex items-center justify-center text-lime-600 dark:text-lime-400">
                 <Layers size={20} />
@@ -162,7 +162,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
       </div>
 
       <div className="flex-1 flex overflow-hidden">
-          <div className={`bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isSidebarOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 border-none overflow-hidden'}`}>
+          <div className={`bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 flex flex-col transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] ${isSidebarOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 border-none overflow-hidden'}`}>
               <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 flex justify-between items-center shrink-0">
                   <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Sequences</span>
                   <button onClick={handleCreateSequence} className="p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded text-lime-600 dark:text-lime-400"><Plus size={16} /></button>
@@ -183,7 +183,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                 if (isSidebarOpen) setIsSidebarOpen(false);
               }}
           >
-              <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className={`absolute top-1/2 -translate-y-1/2 z-30 w-5 h-12 bg-white dark:bg-zinc-900 border-y border-r border-zinc-200 dark:border-zinc-700 rounded-r-xl flex items-center justify-center text-zinc-500 hover:text-lime-600 dark:hover:text-lime-400 hover:border-lime-500 transition-all shadow-lg left-0`}>
+              <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className={`absolute top-1/2 -translate-y-1/2 z-30 w-5 h-12 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-y border-r border-zinc-200 dark:border-zinc-700 rounded-r-xl flex items-center justify-center text-zinc-500 hover:text-lime-600 dark:hover:text-lime-400 hover:border-lime-500 transition-all shadow-lg left-0`}>
                   {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
               </button>
               
@@ -202,9 +202,9 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                             <div>
                                 <label className="block text-xs font-mono text-zinc-500 mb-1">{isActiveStepRoot ? 'Sequence / Item Name' : 'Step Name'}</label>
                                 {isActiveStepRoot ? (
-                                    <input type="text" value={activeSequence.name} onChange={(e) => updateRootItem({ name: e.target.value })} className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none font-bold" />
+                                    <input type="text" value={activeSequence.name} onChange={(e) => updateRootItem({ name: e.target.value })} className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none font-bold" />
                                 ) : (
-                                    <input type="text" value={(activeVisualStep as ModifierGroup).name} onChange={(e) => updateCurrentGroup({ name: e.target.value })} className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none" />
+                                    <input type="text" value={(activeVisualStep as ModifierGroup).name} onChange={(e) => updateCurrentGroup({ name: e.target.value })} className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none" />
                                 )}
                             </div>
                             
@@ -214,7 +214,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                                         <label className="block text-xs font-mono text-zinc-500 mb-1">Base Price</label>
                                         <div className="relative">
                                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500">$</span>
-                                            <input type="number" value={activeSequence.price} onChange={(e) => updateRootItem({ price: parseFloat(e.target.value) })} className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg pl-6 pr-3 py-2 text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none font-mono" />
+                                            <input type="number" value={activeSequence.price} onChange={(e) => updateRootItem({ price: parseFloat(e.target.value) })} className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg pl-6 pr-3 py-2 text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none font-mono" />
                                         </div>
                                     </div>
                                     <div className="p-4 bg-lime-50 dark:bg-lime-900/10 rounded-xl border border-lime-200 dark:border-lime-900/30">
@@ -222,11 +222,11 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                                         <div className="space-y-3">
                                             <div>
                                                 <label className="block text-[10px] font-mono text-zinc-500 mb-1 uppercase">Kitchen Label (e.g. Bun)</label>
-                                                <input type="text" value={activeSequence.metadata?.kitchenLabel || ''} onChange={(e) => updateRootItem({ metadata: { ...activeSequence.metadata, kitchenLabel: e.target.value } })} placeholder="Ingredient Name" className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-xs text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none" />
+                                                <input type="text" value={activeSequence.metadata?.kitchenLabel || ''} onChange={(e) => updateRootItem({ metadata: { ...activeSequence.metadata, kitchenLabel: e.target.value } })} placeholder="Ingredient Name" className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-xs text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none" />
                                             </div>
                                             <div>
                                                 <label className="block text-[10px] font-mono text-zinc-500 mb-1 uppercase">Quantity Per Item</label>
-                                                <input type="number" value={activeSequence.metadata?.quantity || 1} onChange={(e) => updateRootItem({ metadata: { ...activeSequence.metadata, quantity: parseFloat(e.target.value) } })} className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-xs text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none" />
+                                                <input type="number" value={activeSequence.metadata?.quantity || 1} onChange={(e) => updateRootItem({ metadata: { ...activeSequence.metadata, quantity: parseFloat(e.target.value) } })} className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-xs text-black dark:text-white focus:border-lime-500 dark:focus:border-lime-400 outline-none" />
                                             </div>
                                         </div>
                                     </div>
@@ -237,10 +237,10 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                                 <div>
                                     <label className="block text-xs font-mono text-zinc-500 mb-2">Step Logic</label>
                                     <div className="space-y-2">
-                                        <button onClick={() => updateCurrentGroup({ variant: undefined })} className={`w-full text-left px-3 py-3 rounded-lg border transition-all flex items-center justify-between ${!(activeVisualStep as ModifierGroup).variant ? 'bg-zinc-100 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-white' : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:border-zinc-300 dark:hover:border-zinc-700'}`}>
+                                        <button onClick={() => updateCurrentGroup({ variant: undefined })} className={`w-full text-left px-3 py-3 rounded-lg border transition-all flex items-center justify-between ${!(activeVisualStep as ModifierGroup).variant ? 'bg-zinc-100 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-white' : 'bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:border-zinc-300 dark:hover:border-zinc-700'}`}>
                                             <span className="text-sm font-bold">Modifier</span>{!(activeVisualStep as ModifierGroup).variant && <CheckCircle size={16} className="text-lime-600 dark:text-lime-400" />}
                                         </button>
-                                        <button onClick={() => updateCurrentGroup({ variant: 'sub_item' })} className={`w-full text-left px-3 py-3 rounded-lg border transition-all flex items-center justify-between ${(activeVisualStep as ModifierGroup).variant === 'sub_item' ? 'bg-blue-100 dark:bg-blue-900/20 border-blue-500 text-blue-700 dark:text-blue-200' : 'bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:border-zinc-300 dark:hover:border-zinc-700'}`}>
+                                        <button onClick={() => updateCurrentGroup({ variant: 'sub_item' })} className={`w-full text-left px-3 py-3 rounded-lg border transition-all flex items-center justify-between ${(activeVisualStep as ModifierGroup).variant === 'sub_item' ? 'bg-blue-100 dark:bg-blue-900/20 border-blue-500 text-blue-700 dark:text-blue-200' : 'bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:border-zinc-300 dark:hover:border-zinc-700'}`}>
                                             <span className="text-sm font-bold">Additional Item (e.g. Sides)</span>{(activeVisualStep as ModifierGroup).variant === 'sub_item' && <CheckCircle size={16} className="text-blue-600 dark:text-blue-400" />}
                                         </button>
                                     </div>
@@ -248,17 +248,17 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                             )}
 
                             {!isActiveStepRoot && (
-                                <div className="p-4 bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 space-y-4">
+                                <div className="p-4 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 space-y-4">
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm text-zinc-500 dark:text-zinc-400">Mandatory?</span>
                                         <button onClick={() => updateCurrentGroup({ required: !(activeVisualStep as ModifierGroup).required })} className={`w-12 h-6 rounded-full transition-colors relative ${(activeVisualStep as ModifierGroup).required ? 'bg-lime-500' : 'bg-zinc-200 dark:bg-zinc-700'}`}>
-                                            <div className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${(activeVisualStep as ModifierGroup).required ? 'translate-x-6' : 'translate-x-0'}`} />
+                                            <div className={`absolute top-1 left-1 bg-zinc-50 dark:bg-zinc-900 w-4 h-4 rounded-full transition-transform ${(activeVisualStep as ModifierGroup).required ? 'translate-x-6' : 'translate-x-0'}`} />
                                         </button>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <span className="text-sm text-zinc-500 dark:text-zinc-400">Multi-Select?</span>
                                         <button onClick={() => updateCurrentGroup({ multiSelect: !(activeVisualStep as ModifierGroup).multiSelect })} className={`w-12 h-6 rounded-full transition-colors relative ${(activeVisualStep as ModifierGroup).multiSelect ? 'bg-blue-500' : 'bg-zinc-200 dark:bg-zinc-700'}`}>
-                                            <div className={`absolute top-1 left-1 bg-white w-4 h-4 rounded-full transition-transform ${(activeVisualStep as ModifierGroup).multiSelect ? 'translate-x-6' : 'translate-x-0'}`} />
+                                            <div className={`absolute top-1 left-1 bg-zinc-50 dark:bg-zinc-900 w-4 h-4 rounded-full transition-transform ${(activeVisualStep as ModifierGroup).multiSelect ? 'translate-x-6' : 'translate-x-0'}`} />
                                         </button>
                                     </div>
                                 </div>
@@ -278,7 +278,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                                      <p className="max-w-xs text-center text-sm">This is the Main Item of the sequence. It serves as the root. Add steps to attach modifiers or additional items to it.</p>
                                  </div>
                              ) : (
-                                <div className="bg-white dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4">
+                                <div className="bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800 rounded-xl p-4">
                                     <div className="flex justify-between items-center mb-4">
                                         <h3 className="text-sm font-bold text-zinc-700 dark:text-zinc-300">{(activeVisualStep as ModifierGroup).variant === 'sub_item' ? 'Available Items' : 'Modifier Options'}</h3>
                                         <button onClick={handleAddOption} className="text-xs bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-lime-600 dark:text-lime-400 px-3 py-1.5 rounded-lg font-bold flex items-center transition-colors"><Plus size={12} className="mr-1" /> ADD OPTION</button>
@@ -290,13 +290,13 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                                                     <div className="cursor-move text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-400"><GripVertical size={16} /></div>
                                                     <input type="text" value={opt.name} onChange={(e) => updateOption(opt.id, { name: e.target.value })} className="flex-1 bg-transparent text-sm text-zinc-900 dark:text-zinc-200 focus:text-black dark:focus:text-white outline-none font-medium" placeholder="Option Name" />
                                                     <button onClick={() => setExpandedOptionId(expandedOptionId === opt.id ? null : opt.id)} className={`p-1.5 rounded transition-colors ${opt.metadata?.kitchenLabel || expandedOptionId === opt.id ? 'text-lime-600 dark:text-lime-400 bg-lime-100 dark:bg-lime-900/20' : 'text-zinc-400 hover:text-lime-600 dark:hover:text-lime-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'}`} title="Kitchen Settings"><ChefHat size={16} /></button>
-                                                    <div className="flex items-center bg-white dark:bg-zinc-950 rounded px-2 border border-zinc-200 dark:border-zinc-800"><span className="text-zinc-400 dark:text-zinc-500 text-xs mr-1">$</span><input type="number" value={opt.price} onChange={(e) => updateOption(opt.id, { price: parseFloat(e.target.value) })} className="w-16 bg-transparent text-right text-sm font-mono text-lime-600 dark:text-lime-400 outline-none" /></div>
+                                                    <div className="flex items-center bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 rounded px-2 border border-zinc-200 dark:border-zinc-800"><span className="text-zinc-400 dark:text-zinc-500 text-xs mr-1">$</span><input type="number" value={opt.price} onChange={(e) => updateOption(opt.id, { price: parseFloat(e.target.value) })} className="w-16 bg-transparent text-right text-sm font-mono text-lime-600 dark:text-lime-400 outline-none" /></div>
                                                     <button onClick={() => deleteOption(opt.id)} className="p-1.5 text-zinc-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded transition-colors opacity-0 group-hover:opacity-100"><Trash2 size={14} /></button>
                                                 </div>
                                                 {(expandedOptionId === opt.id || opt.metadata?.kitchenLabel) && (
                                                     <div className={`mt-2 pt-2 border-t border-zinc-200 dark:border-zinc-800/50 grid grid-cols-2 gap-4 animate-in slide-in-from-top-1 ${!expandedOptionId ? 'hidden' : 'block'}`}>
-                                                        <div><label className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold mb-1 block">Kitchen Label</label><input type="text" value={opt.metadata?.kitchenLabel || ''} onChange={(e) => updateOption(opt.id, { metadata: { ...opt.metadata, kitchenLabel: e.target.value } })} placeholder="e.g. Patty" className="w-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded px-2 py-1 text-xs text-lime-600 dark:text-lime-400 font-mono outline-none focus:border-lime-500/50" /></div>
-                                                        <div><label className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold mb-1 block">Quantity</label><input type="number" value={opt.metadata?.quantity || 1} onChange={(e) => updateOption(opt.id, { metadata: { ...opt.metadata, quantity: parseFloat(e.target.value) } })} className="w-full bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded px-2 py-1 text-xs text-lime-600 dark:text-lime-400 font-mono outline-none focus:border-lime-500/50" /></div>
+                                                        <div><label className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold mb-1 block">Kitchen Label</label><input type="text" value={opt.metadata?.kitchenLabel || ''} onChange={(e) => updateOption(opt.id, { metadata: { ...opt.metadata, kitchenLabel: e.target.value } })} placeholder="e.g. Patty" className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded px-2 py-1 text-xs text-lime-600 dark:text-lime-400 font-mono outline-none focus:border-lime-500/50" /></div>
+                                                        <div><label className="text-[9px] text-zinc-500 uppercase tracking-widest font-bold mb-1 block">Quantity</label><input type="number" value={opt.metadata?.quantity || 1} onChange={(e) => updateOption(opt.id, { metadata: { ...opt.metadata, quantity: parseFloat(e.target.value) } })} className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded px-2 py-1 text-xs text-lime-600 dark:text-lime-400 font-mono outline-none focus:border-lime-500/50" /></div>
                                                     </div>
                                                 )}
                                             </div>
@@ -309,7 +309,7 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                   </div>
 
                   <div className="absolute bottom-0 left-0 right-0 h-auto bg-zinc-100 dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 flex flex-col z-10 shadow-lg pb-[env(safe-area-inset-bottom)]">
-                      <div className="px-6 py-2 border-b border-zinc-200 dark:border-zinc-800 flex justify-between items-center bg-white dark:bg-zinc-950">
+                      <div className="px-6 py-2 border-b border-zinc-200 dark:border-zinc-800 flex justify-between items-center bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950">
                           <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Sequence Timeline</span>
                           <button onClick={handleAddStep} className="flex items-center text-xs font-bold text-lime-600 dark:text-lime-400 hover:text-black dark:hover:text-white transition-colors"><Plus size={14} className="mr-1" /> ADD STEP TO END</button>
                       </div>
@@ -325,10 +325,10 @@ const SettingsScreen: React.FC<SettingsScreenProps> = ({ onClose, activeConceptI
                                       {idx > 0 && (
                                           <div className="relative w-12 flex flex-col items-center justify-center group/connector">
                                               <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-zinc-300 dark:bg-zinc-800 -translate-y-1/2" />
-                                              <button onClick={() => handleInsertStep(idx)} className="relative z-10 w-5 h-5 rounded-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-500 hover:text-lime-600 dark:hover:text-lime-400 hover:border-lime-500 dark:hover:border-lime-400 flex items-center justify-center shadow-sm transition-all active:scale-95" title="Insert Step Here"><Plus size={10} strokeWidth={3} /></button>
+                                              <button onClick={() => handleInsertStep(idx)} className="relative z-10 w-5 h-5 rounded-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-500 hover:text-lime-600 dark:hover:text-lime-400 hover:border-lime-500 dark:hover:border-lime-400 flex items-center justify-center shadow-sm transition-all active:scale-95" title="Insert Step Here"><Plus size={10} strokeWidth={3} /></button>
                                           </div>
                                       )}
-                                      <button onClick={() => setSelectedStepId(step.id)} className={`w-44 h-28 rounded-xl border-2 flex flex-col p-3 transition-all relative overflow-visible text-left ${isActive ? 'bg-zinc-50 dark:bg-zinc-800 border-lime-500 shadow-md scale-105 z-10' : isRoot ? 'bg-lime-50 dark:bg-lime-900/10 border-lime-500/30' : isSubItem ? 'bg-blue-50 dark:bg-blue-900/10 border-blue-500/50' : 'bg-white dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'}`}>
+                                      <button onClick={() => setSelectedStepId(step.id)} className={`w-44 h-28 rounded-xl border-2 flex flex-col p-3 transition-all relative overflow-visible text-left ${isActive ? 'bg-zinc-50 dark:bg-zinc-800 border-lime-500 shadow-md scale-105 z-10' : isRoot ? 'bg-lime-50 dark:bg-lime-900/10 border-lime-500/30' : isSubItem ? 'bg-blue-50 dark:bg-blue-900/10 border-blue-500/50' : 'bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 border-zinc-200 dark:border-zinc-800 hover:border-zinc-400'}`}>
                                           <div className="flex items-center gap-1 mb-2">
                                               {isRoot && <span className="text-[9px] font-bold bg-lime-500 text-zinc-950 px-1.5 rounded">ROOT</span>}
                                               {isSubItem && <span className="text-[9px] font-bold bg-blue-500 text-zinc-950 px-1.5 rounded">ITEM</span>}

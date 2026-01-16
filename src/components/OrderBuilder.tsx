@@ -186,7 +186,7 @@ const OrderBuilder: React.FC<OrderBuilderProps> = ({ product, editItem, onComple
   }
 
   return (
-    <div className="h-full w-full flex flex-col bg-white dark:bg-zinc-950 transition-colors">
+    <div className="h-full w-full flex flex-col bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 transition-colors">
       
       {/* BUILDER HEADER */}
       <div className="h-16 px-6 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between shrink-0 bg-zinc-50 dark:bg-zinc-900/50">
@@ -243,7 +243,7 @@ const OrderBuilder: React.FC<OrderBuilderProps> = ({ product, editItem, onComple
       </div>
 
       {/* FOOTER NAVIGATION */}
-      <div className="h-20 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 flex items-center justify-between shrink-0 gap-4 shadow-[0_-5px_15px_rgba(0,0,0,0.05)] dark:shadow-none">
+      <div className="h-20 border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 px-6 flex items-center justify-between shrink-0 gap-4 shadow-[0_-5px_15px_rgba(0,0,0,0.05)] dark:shadow-none">
           
           {/* PREVIOUS BUTTON */}
           <button 

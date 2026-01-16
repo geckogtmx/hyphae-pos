@@ -159,7 +159,7 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
       }
 
       return (
-          <div className="w-full bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 p-3 flex items-center justify-between shrink-0 animate-in slide-in-from-top">
+          <div className="w-full bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 p-3 flex items-center justify-between shrink-0 animate-in slide-in-from-top">
               <div className="flex items-center space-x-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center bg-${tier?.color || 'zinc'}-100 dark:bg-${tier?.color || 'zinc'}-900/50 text-${tier?.color || 'zinc'}-600 dark:text-${tier?.color || 'zinc'}-400 border border-${tier?.color || 'zinc'}-200 dark:border-${tier?.color || 'zinc'}-500/30`}>
                       <Crown size={20} fill="currentColor" />
@@ -238,7 +238,7 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
 
         {mode === 'BROWSE' && (
           <>
-            <div className={`h-14 flex justify-between items-center px-4 border-b border-zinc-200 dark:border-zinc-800 shrink-0 ${state.editingOrder ? 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-500/50' : 'bg-white dark:bg-zinc-900/30'}`}>
+            <div className={`h-14 flex justify-between items-center px-4 border-b border-zinc-200 dark:border-zinc-800 shrink-0 ${state.editingOrder ? 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-500/50' : 'bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900/30'}`}>
               <div className="flex items-center space-x-4">
                 {state.editingOrder ? (
                     <div className="flex items-center space-x-3">
@@ -285,7 +285,7 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
                         <button
                             key={item.id}
                             onClick={() => handleProductClick(item)}
-                            className={`group relative flex flex-col justify-between h-32 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all active:scale-[0.98]
+                            className={`group relative flex flex-col justify-between h-32 p-3 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-all active:scale-[0.98]
                                 hover:border-${activeConcept?.color.split('-')[0]}-400 hover:shadow-lg
                             `}
                         >
@@ -328,7 +328,7 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
         )}
 
         {mode === 'BUILD' && buildingProduct && (
-            <div className="absolute inset-0 z-20 bg-white dark:bg-zinc-950">
+            <div className="absolute inset-0 z-20 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950">
                 <OrderBuilder 
                     product={buildingProduct} 
                     editItem={editingItem || undefined}
@@ -342,14 +342,14 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
 
       {/* --- BOTTOM SECTION: TICKET RAIL --- */}
       <div className={`
-          bg-white dark:bg-zinc-950 flex flex-col shadow-[0_-5px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] z-30 shrink-0
+          bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 flex flex-col shadow-[0_-5px_30px_rgba(0,0,0,0.1)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] z-30 shrink-0
           transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]
           ${mode === 'LOYALTY' ? 'h-0 overflow-hidden' : isTicketExpanded ? 'h-full' : 'h-[35%]'}
       `}>
         <div className="flex-1 min-h-0 flex flex-col bg-zinc-50 dark:bg-zinc-900/50 relative">
             <button 
                 onClick={(e) => { e.stopPropagation(); setIsTicketExpanded(!isTicketExpanded); }}
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-white dark:bg-zinc-800 text-zinc-400 hover:text-lime-600 dark:hover:text-lime-400 hover:bg-zinc-100 dark:hover:bg-zinc-700 z-10 rounded-b-xl flex items-center justify-center shadow-lg border-x border-b border-zinc-200 dark:border-zinc-900 transition-colors"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-8 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-800 text-zinc-400 hover:text-lime-600 dark:hover:text-lime-400 hover:bg-zinc-100 dark:hover:bg-zinc-700 z-10 rounded-b-xl flex items-center justify-center shadow-lg border-x border-b border-zinc-200 dark:border-zinc-900 transition-colors"
                 title={isTicketExpanded ? "Collapse View" : "Expand View"}
             >
                 {isTicketExpanded ? <ChevronDown size={24} strokeWidth={3} /> : <ChevronUp size={24} strokeWidth={3} />}
@@ -357,7 +357,7 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
 
             <div className="flex-1 px-3 pb-3 pt-10 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-300 dark:scrollbar-thumb-zinc-700 scrollbar-track-transparent flex flex-col gap-2">
                 {mode === 'BUILD' && buildingProduct && (
-                    <div className="w-full h-16 shrink-0 bg-white dark:bg-zinc-900/50 border border-dashed border-lime-500/50 dark:border-lime-400/50 rounded-xl p-3 flex flex-row items-center justify-between animate-pulse">
+                    <div className="w-full h-16 shrink-0 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900/50 border border-dashed border-lime-500/50 dark:border-lime-400/50 rounded-xl p-3 flex flex-row items-center justify-between animate-pulse">
                         <div className="flex flex-col">
                              <div className="flex items-center space-x-2 mb-1">
                                 <span className="text-lime-600 dark:text-lime-400 font-mono text-[10px] uppercase tracking-widest">
@@ -383,7 +383,7 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
                         <div 
                             key={item.uniqueId} 
                             className={`
-                                group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 rounded-xl p-2 flex flex-col min-h-[56px] shrink-0 shadow-sm
+                                group bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 rounded-xl p-2 flex flex-col min-h-[56px] shrink-0 shadow-sm
                                 ${editingItem?.uniqueId === item.uniqueId ? 'border-lime-500/50 bg-lime-50 dark:bg-lime-900/10' : ''}
                                 ${item.isDiscounted ? 'border-l-4 border-l-yellow-400' : ''}
                             `}
@@ -483,7 +483,7 @@ const Stage: React.FC<StageProps> = ({ activeConceptId = 'tacocracy', onLayoutCh
             </div>
         </div>
 
-        <div className="h-auto shrink-0 bg-white dark:bg-zinc-950 p-3 border-t border-zinc-200 dark:border-zinc-900 pb-[env(safe-area-inset-bottom)]">
+        <div className="h-auto shrink-0 bg-zinc-50 dark:bg-zinc-900 dark:bg-zinc-950 p-3 border-t border-zinc-200 dark:border-zinc-900 pb-[env(safe-area-inset-bottom)]">
             <button 
                 onClick={(e) => { e.stopPropagation(); if (state.items.length > 0) setIsCheckoutOpen(true); }}
                 disabled={state.items.length === 0}
