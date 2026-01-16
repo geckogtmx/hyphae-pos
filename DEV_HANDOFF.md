@@ -16,6 +16,9 @@
   - Deleted 9 irrelevant Loom-legacy skills (`electron-ipc`, `memory-layer`, etc).
   - Created `pos-domain-logic` (Business rules).
   - Created `offline-sync` (Architecture guide).
+  - Created `docs/reference_ui/UI_SPECIFICATION.md` - Visual standards guide.
+- Added 5 high-fidelity UI screenshots to `docs/reference_ui/` for reference.
+- Committed and pushed all documentation changes to `main`.
   - Created `pos-session-manager` (Shift/Cash logic).
   - Updated `security` and `frontend-design` for Hyphae context.
 
