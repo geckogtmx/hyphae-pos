@@ -31,13 +31,13 @@ Hyphae MPOS is a **React-based Point-of-Sale application** designed for modern r
 
 ## 📊 Project Status
 
-| Aspect | Status |
-|--------|--------|
-| **Development Stage** | Prototype / MVP |
-| **Core POS Flow** | ✅ Complete |
-| **Backend Integration** | 🟡 Planned |
-| **BOH App Integration** | 🟡 Planned |
-| **Production Ready** | ❌ Not Yet |
+| Aspect                  | Status          |
+| ----------------------- | --------------- |
+| **Development Stage**   | Prototype / MVP |
+| **Core POS Flow**       | ✅ Complete     |
+| **Backend Integration** | 🟡 Planned      |
+| **BOH App Integration** | 🟡 Planned      |
+| **Production Ready**    | ❌ Not Yet      |
 
 See [`docs/STATUS_REPORT_2026-01-16.md`](docs/STATUS_REPORT_2026-01-16.md) for detailed analysis.
 
@@ -64,7 +64,7 @@ See [`docs/STATUS_REPORT_2026-01-16.md`](docs/STATUS_REPORT_2026-01-16.md) for d
 
 ### Prerequisites
 
-- **Node.js** 20+ 
+- **Node.js** 20+
 - **npm** 10+ (or pnpm/yarn)
 
 ### Installation
@@ -89,14 +89,14 @@ The app will be available at `http://localhost:3000`
 
 ### Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server with HMR |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run test` | Run unit tests with Vitest |
-| `npm run lint` | Check code quality with ESLint |
-| `npm run format` | Format code with Prettier |
+| Script            | Description                       |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Start development server with HMR |
+| `npm run build`   | Build for production              |
+| `npm run preview` | Preview production build          |
+| `npm run test`    | Run unit tests with Vitest        |
+| `npm run lint`    | Check code quality with ESLint    |
+| `npm run format`  | Format code with Prettier         |
 
 ---
 
@@ -123,14 +123,14 @@ hyphae-pos/
 
 ## 🛠️ Tech Stack
 
-| Category | Technology |
-|----------|------------|
-| **Framework** | React 19.2 |
-| **Language** | TypeScript 5.8 |
-| **Build Tool** | Vite 6.2 |
-| **Styling** | TailwindCSS |
-| **Icons** | Lucide React |
-| **State** | React Context + useReducer |
+| Category       | Technology                 |
+| -------------- | -------------------------- |
+| **Framework**  | React 19.2                 |
+| **Language**   | TypeScript 5.8             |
+| **Build Tool** | Vite 6.2                   |
+| **Styling**    | TailwindCSS                |
+| **Icons**      | Lucide React               |
+| **State**      | React Context + useReducer |
 
 See [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md) for recommended upgrades.
 
@@ -138,10 +138,11 @@ See [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md) for recommended upgra
 
 ## 📖 Documentation
 
-| Document | Description |
-|----------|-------------|
-| [Status Report](docs/STATUS_REPORT_2026-01-16.md) | Current codebase analysis |
-| [Development Plan](docs/DEVELOPMENT_PLAN.md) | 12-week roadmap to production |
+| Document                                          | Description                       |
+| ------------------------------------------------- | --------------------------------- |
+| [Status Report](docs/STATUS_REPORT_2026-01-16.md) | Current codebase analysis         |
+| [Development Plan](docs/DEVELOPMENT_PLAN.md)      | 12-week roadmap to production     |
+| [Core Integration](docs/CORE_INTEGRATION.md)      | Schema alignment with Hyphae Core |
 
 ---
 
@@ -151,10 +152,12 @@ See [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md) for recommended upgra
 <summary>Click to view UI screenshots</summary>
 
 ### Dark Mode - Desktop
-*Coming soon*
+
+_Coming soon_
 
 ### Light Mode - Mobile
-*Coming soon*
+
+_Coming soon_
 
 </details>
 
@@ -162,13 +165,13 @@ See [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md) for recommended upgra
 
 ## 🗺️ Roadmap
 
-| Phase | Timeline | Focus |
-|-------|----------|-------|
-| **Phase 0** | Weeks 1-2 | Build stabilization, testing setup |
-| **Phase 1** | Weeks 3-4 | Service layer, offline queue |
-| **Phase 2** | Weeks 5-8 | Core API integration, payments |
-| **Phase 3** | Weeks 9-10 | BOH app integration, real-time |
-| **Phase 4** | Weeks 11-12 | Security, performance, deployment |
+| Phase       | Timeline    | Focus                              |
+| ----------- | ----------- | ---------------------------------- |
+| **Phase 0** | Weeks 1-2   | Build stabilization, testing setup |
+| **Phase 1** | Weeks 3-4   | Service layer, offline queue       |
+| **Phase 2** | Weeks 5-8   | Core API integration, payments     |
+| **Phase 3** | Weeks 9-10  | BOH app integration, real-time     |
+| **Phase 4** | Weeks 11-12 | Security, performance, deployment  |
 
 ---
 

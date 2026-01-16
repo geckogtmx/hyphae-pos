@@ -30,6 +30,7 @@ All AI models (Gemini, Claude, GPT) working on `hyphae-pos` MUST adhere to this 
 - `docs/DESIGN_SHASO.md`: UI/UX Truth.
 - `docs/QA_TESTING.md`: Testing Rules.
 - `docs/TASKS.md`: Current Roadmap.
+- `docs/CORE_INTEGRATION.md`: Schema alignment with Hyphae Core.
 - `DEV_HANDOFF.md`: The baton pass between agents.
 - `SECURITY.md`: Security Policy & Threat Model.
 
