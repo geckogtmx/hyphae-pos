@@ -31,8 +31,15 @@ All AI models (Gemini, Claude, GPT) working on `hyphae-pos` MUST adhere to this 
 *   `docs/QA_TESTING.md`: Testing Rules.
 *   `docs/TASKS.md`: Current Roadmap.
 *   `DEV_HANDOFF.md`: The baton pass between agents.
+*   `SECURITY.md`: Security Policy & Threat Model.
 
-## 5. Conflict Resolution
+## 5. Security Protocol (The "Shield")
+
+1.  **Validation**: ALL inputs must be validated (Zod preferred).
+2.  **No Raw SQL**: Use ORM methods only.
+3.  **Secret Check**: Check for leaked keys before every commit.
+
+## 6. Conflict Resolution
 
 If a User Request contradicts the Codex:
 1.  **Minor**: Prioritize User Request (Flexibility).

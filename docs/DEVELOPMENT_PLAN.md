@@ -391,6 +391,11 @@ interface IReceiptService {
 | Order Flow | Orders submit to Core API, offline queue works |
 | Payments | Card payments process (sandbox mode) |
 
+### 🛡️ Phase 2 Security Gate
+- [ ] **Audit**: `pnpm audit` passes with 0 critical/high issues.
+- [ ] **Validation**: All new API endpoints have Zod schemas.
+- [ ] **Auth**: Login requires robust authentication (no hardcoded pins).
+
 ---
 
 ## 🍳 Phase 3: BOH Integration (Weeks 9-10)
@@ -464,6 +469,11 @@ interface OrderConflictResolution {
 | Status Sync | Order status updates in <500ms |
 | Notifications | Audio + visual alerts for ready orders |
 | Conflict Handling | No data loss on concurrent edits |
+
+### 🛡️ Phase 3 Security Gate
+- [ ] **WebSocket**: Auth tokens verified on connection.
+- [ ] **Rate Limiting**: WS connections limited per IP.
+- [ ] **Sanitization**: Chat/Order notes sanitized against XSS.
 
 ---
 

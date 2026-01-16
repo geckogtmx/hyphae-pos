@@ -1,3 +1,4 @@
+
 # Logs
 logs
 *.log
@@ -11,6 +12,19 @@ node_modules
 dist
 dist-ssr
 *.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Drizzle (Keep migrations, ignore generated artifacts if any)
+# drizzle/meta 
 
 # Editor directories and files
 .vscode/*
