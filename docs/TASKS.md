@@ -5,6 +5,7 @@
 > **Objective**: Implement Core Database, Services, and Security Foundation
 
 ## Phase 0: Stabilization (Build & Style System)
+
 1. [x] **Remove CDN Dependencies**: Delete `<script src="...">` for Tailwind and React from `index.html`.
 2. [x] **Install Styling Engine**: Run `npm install -D tailwindcss postcss autoprefixer`.
 3. [x] **Initialize Configuration**: Generate `tailwind.config.js` and `postcss.config.js`.
@@ -19,29 +20,32 @@
 12. [x] **Fix Visual Regression**: Identify and patch `bg-white` artifacts to `bg-ink-xxx`.
 
 ## Phase 1: Testing & Quality Assurance
+
 13. [x] **Install Test Runner**: Install `vitest`, `jsdom`, and `@testing-library/react`.
 14. [x] **Configure Vitest**: Create `vitest.config.ts` (shared or separate from Vite).
 15. [x] **Sanity Test**: Write a basic rendering test for `<App />`.
 16. [x] **Linting Standards**: Install `eslint` and `prettier` with project-specific rules.
-17. [ ] **Pre-commit Hooks**: Setup `husky` (optional) or `lint-staged`.
+17. [x] **Pre-commit Hooks**: Setup `husky` and `lint-staged` for automated quality checks.
 18. [x] **UI Unit Tests**: Create and test `Button` component (CVA) and `ErrorBoundary`.
 19. [x] **Environment Config**: Create `.env.example` standardizing API keys and flags.
-
 
 ## Phase 2: Architecture & Backend Prep
 
 ### Core Infrastructure
+
 20. [x] **Directory Re-structure**: Move `components` to `src/components`, `hooks` to `src/hooks`.
 21. [x] **Database Setup**: Install `drizzle-orm` and `@libsql/client` (LibSQL selected over better-sqlite3).
 22. [x] **Schema Definition**: Create initial Drizzle schema for `Orders` and `Menu`.
 23. [x] **Migration Test**: Verified DB connectivity via `src/db/__tests__/db.test.ts`.
 
 ### Security Foundation (Phase 2 Gate)
+
 24. [x] **Security Audit**: Run `pnpm audit` and vulnerability scan (Clean).
 25. [x] **Security Policy**: Create `SECURITY.md` and update `AI_CODEX.md`.
 26. [x] **Git Hygiene**: Update `.gitignore` to exclude sensitive DB and Env files.
 
 ### Service Layer (Next Up)
+
 27. [ ] **Repository Layer**: Create `src/repositories/*` for Drizzle abstraction.
 28. [ ] **Seed Script**: Populate `menu_items` from `mock_data.ts`.
 29. [ ] **Service Layer**: Implement `OrderService.ts` business logic.
