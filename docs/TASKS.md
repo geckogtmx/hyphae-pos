@@ -1,8 +1,8 @@
 # Hyphae POS - Task List (Phase 0 & 1)
 
 > **Status**: Active
-> **Phase**: 1 - Testing & Quality Assurance
-> **Objective**: Convert prototype to production-grade application
+> **Phase**: 2 - Architecture & Backend Prep
+> **Objective**: Implement Core Database, Services, and Security Foundation
 
 ## Phase 0: Stabilization (Build & Style System)
 1. [x] **Remove CDN Dependencies**: Delete `<script src="...">` for Tailwind and React from `index.html`.
@@ -27,8 +27,22 @@
 18. [x] **UI Unit Tests**: Create and test `Button` component (CVA) and `ErrorBoundary`.
 19. [x] **Environment Config**: Create `.env.example` standardizing API keys and flags.
 
+
 ## Phase 2: Architecture & Backend Prep
-31. [x] **Directory Re-structure**: Move `components` to `src/components`, `hooks` to `src/hooks` (if not already strictly enforced).
-32. [x] **Database Setup**: Install `drizzle-orm` and `@libsql/client` (switched from better-sqlite3 due to build issues).
-33. [x] **Schema Definition**: Create initial Drizzle schema for `Orders` and `Menu`.
-34. [x] **Migration Test**: Run a local SQLite migration to prove DB connectivity.
+
+### Core Infrastructure
+20. [x] **Directory Re-structure**: Move `components` to `src/components`, `hooks` to `src/hooks`.
+21. [x] **Database Setup**: Install `drizzle-orm` and `@libsql/client` (LibSQL selected over better-sqlite3).
+22. [x] **Schema Definition**: Create initial Drizzle schema for `Orders` and `Menu`.
+23. [x] **Migration Test**: Verified DB connectivity via `src/db/__tests__/db.test.ts`.
+
+### Security Foundation (Phase 2 Gate)
+24. [x] **Security Audit**: Run `pnpm audit` and vulnerability scan (Clean).
+25. [x] **Security Policy**: Create `SECURITY.md` and update `AI_CODEX.md`.
+26. [x] **Git Hygiene**: Update `.gitignore` to exclude sensitive DB and Env files.
+
+### Service Layer (Next Up)
+27. [ ] **Repository Layer**: Create `src/repositories/*` for Drizzle abstraction.
+28. [ ] **Seed Script**: Populate `menu_items` from `mock_data.ts`.
+29. [ ] **Service Layer**: Implement `OrderService.ts` business logic.
+30. [ ] **React Query Integration**: Setup `QueryClient` and replace `mock_data.ts` in UI.

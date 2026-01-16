@@ -20,6 +20,11 @@
   - **Linting**: Fixed `Button.tsx` lint warning (`asChild` prop). Project is lint-clean.
   - **Utils**: Refactored `src/lib/utils.ts` to use official `class-variance-authority` package instead of "mini-cva".
 
+- **Security Foundation**:
+  - **Audit**: Ran dependency scan and static analysis (clean).
+  - **Policy**: Established `SECURITY.md` and updated `AI_CODEX.md` with mandatory validation rules.
+  - **Hardening**: Updated `.gitignore` and pinned critical dependencies.
+
 - **Documentation**:
   - Created `docs/DATABASE.md` explaining the LibSQL choice.
   - Updated `docs/TASKS.md` marking Phase 2 DB setup tasks complete.
@@ -28,7 +33,6 @@
 
 - **Node 24 Compatibility**: The environment is running Node v24 (bleeding edge). This caused `better-sqlite3` native bindings to fail.
   - *Mitigation*: We are using `@libsql/client` which works fine. Do not revert to `better-sqlite3` unless you are sure the build environment is fixed.
-- **Task Numbering**: `docs/TASKS.md` has some jumpy numbering (went from 20 to 31). This is cosmetic but worth cleaning up later.
 
 ## 🔄 In Progress / Pending
 
