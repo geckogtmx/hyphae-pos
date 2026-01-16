@@ -1,8 +1,8 @@
 # DEV_HANDOFF.md
 
-> **Last Updated:** 2026-01-16T10:30:00-06:00
+> **Last Updated:** 2026-01-16T10:45:00-06:00
 > **Last Model:** Gemini
-> **Session Focus:** Repository Analysis & Documentation
+> **Session Focus:** Repository Analysis, Documentation & Skill Optimization
 
 ---
 
@@ -11,22 +11,27 @@
 - Analyzed the entire `hyphae-pos` codebase (26 files, ~5,500 LOC).
 - Created `docs/STATUS_REPORT_2026-01-16.md` - Comprehensive technical analysis.
 - Created `docs/DEVELOPMENT_PLAN.md` - 12-week roadmap to production.
-- Updated `README.md` - Modernized with architecture, quick start, and links.
-- Committed and pushed all documentation changes to `main` (Hash: `aa68c15`).
+- Modernized `README.md`.
+- **Skill Engine Overhaul:**
+  - Deleted 9 irrelevant Loom-legacy skills (`electron-ipc`, `memory-layer`, etc).
+  - Created `pos-domain-logic` (Business rules).
+  - Created `offline-sync` (Architecture guide).
+  - Created `pos-session-manager` (Shift/Cash logic).
+  - Updated `security` and `frontend-design` for Hyphae context.
 
 ## ⚠️ Known Issues / Broken
 
 - [ ] **TailwindCSS CDN**: Using `https://cdn.tailwindcss.com` in `index.html`. Needs migration to build-time.
 - [ ] **React CDN & Import Maps**: `index.html` loads React from `aistudiocdn.com`. Potentially conflicts with local deps.
-- [ ] **Mock Data Mutation**: `data/mock_data.ts` exports mutable arrays (`LOYALTY_CARDS` etc) which breaks React immutability.
+- [ ] **Mock Data Mutation**: `data/mock_data.ts` exports mutable arrays.
 - [ ] **No Testing**: Zero tests found in repo.
-- [ ] **Security**: Staff PINs stored in plain text in `data/mock_data.ts`.
+- [ ] **Security**: Staff PINs stored in plain text.
 
 ## 🔄 In Progress / Pending
 
-- [ ] **Phase 0: Stabilization** (See `docs/DEVELOPMENT_PLAN.md`)
-  - [ ] Migrate Tailwind
-  - [ ] Remove CDN deps
+- [ ] **Phase 0: Stabilization**
+  - [ ] Migrate Tailwind (Critical)
+  - [ ] Remove CDN deps (Critical)
   - [ ] Setup Vitest
   - [ ] Add ESDoc/Linting
 
@@ -35,34 +40,32 @@
 You are ready to start **Phase 0: Stabilization**.
 
 ### Priority Order
-1. **Read** `docs/DEVELOPMENT_PLAN.md` carefully to understand the roadmap.
-2. **Fix Build System**:
-   - Install TailwindCSS dev dependencies (`npm install -D tailwindcss postcss autoprefixer`).
-   - Create `tailwind.config.js` and `postcss.config.js`.
+1. **Read** `docs/DEVELOPMENT_PLAN.md` carefully.
+2. **Consult** the new `.agent/skills` folder (especially `frontend-design` and `offline-sync`) before starting work.
+3. **Fix Build System** (The standard "Phase 0" tasks):
+   - Install TailwindCSS dev dependencies.
+   - Configure `tailwind.config.js`.
    - Update `vite.config.ts`.
-   - Remove `<script src="https://cdn.tailwindcss.com"></script>` from `index.html`.
-3. **Clean Dependencies**:
+   - Purge CDN links from `index.html`.
+4. **Clean Dependencies**:
    - Remove import maps from `index.html`.
    - Ensure local React/ReactDOM are used.
-4. **Verify**:
-   - Run `npm run dev` to ensure styles still load.
-   - Run `npm run build` to verify production build works (it currently might fail).
 
 ### Context Needed
-- `docs/STATUS_REPORT_2026-01-16.md` for deep dive on current codebase state.
-- `package.json` for current deps.
+- `docs/STATUS_REPORT_2026-01-16.md`
+- `package.json`
 
 ### Do NOT
-- Do not start adding new features (backend, payment) until Phase 0 is complete.
-- Do not ignore the Tailwind migration; it is critical for performance reliability.
+- Do not start adding new features until Phase 0 is complete.
+- Do not use the deleted Loom skills (if you hallucinate them, check the `.agent/skills` dir to see they are gone).
 
 ---
 
 ## Session Log (Last 3 Sessions)
 
-### 2026-01-16 10:30 - Gemini
+### 2026-01-16 10:45 - Gemini
 - Performed full repository audit.
-- Created comprehensive Status Report and Development Plan.
-- Modernized README.md.
-- Identified critical technical debt (CDN usage).
-- Prepared codebase for Phase 0 (Stabilization).
+- Created Status Report and Development Plan.
+- Overhauled Agent Skills (Removed Loom legacy, added POS specific).
+- Updated README.
+- Prepared Phase 0 instructions.
