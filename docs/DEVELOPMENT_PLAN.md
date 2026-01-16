@@ -52,34 +52,34 @@
 
 ### POS App Responsibilities
 
-| Responsibility | Description |
-|----------------|-------------|
-| **Order Entry** | Menu display, modifier selection, cart management |
-| **Payment Processing** | Cash, card, split payments with Core API |
-| **Loyalty Management** | Card lookup, points display (data from Core) |
-| **Kitchen Communication** | Order dispatch to BOH via Core API |
-| **Offline Capability** | Queue orders when network unavailable |
-| **Local Caching** | Menu, loyalty tiers, config caching |
+| Responsibility            | Description                                       |
+| ------------------------- | ------------------------------------------------- |
+| **Order Entry**           | Menu display, modifier selection, cart management |
+| **Payment Processing**    | Cash, card, split payments with Core API          |
+| **Loyalty Management**    | Card lookup, points display (data from Core)      |
+| **Kitchen Communication** | Order dispatch to BOH via Core API                |
+| **Offline Capability**    | Queue orders when network unavailable             |
+| **Local Caching**         | Menu, loyalty tiers, config caching               |
 
 ### Core API Responsibilities (External)
 
-| Responsibility | Description |
-|----------------|-------------|
-| **Data Master** | Products, categories, modifiers, pricing |
-| **Order Processing** | Order persistence, inventory deduction |
-| **Payment Gateway** | Stripe/Square integration |
-| **Loyalty Engine** | Points calculation, tier management |
-| **Analytics** | Sales reporting, metrics |
-| **Multi-Store Sync** | Configuration distribution |
+| Responsibility       | Description                              |
+| -------------------- | ---------------------------------------- |
+| **Data Master**      | Products, categories, modifiers, pricing |
+| **Order Processing** | Order persistence, inventory deduction   |
+| **Payment Gateway**  | Stripe/Square integration                |
+| **Loyalty Engine**   | Points calculation, tier management      |
+| **Analytics**        | Sales reporting, metrics                 |
+| **Multi-Store Sync** | Configuration distribution               |
 
 ### BOH App Responsibilities (External)
 
-| Responsibility | Description |
-|----------------|-------------|
-| **Prep Management** | Batch cooking, prep lists |
-| **Order Queue** | Kitchen display system (KDS) |
-| **Inventory Alerts** | Low stock notifications |
-| **Timing Analytics** | Cook time tracking |
+| Responsibility       | Description                  |
+| -------------------- | ---------------------------- |
+| **Prep Management**  | Batch cooking, prep lists    |
+| **Order Queue**      | Kitchen display system (KDS) |
+| **Inventory Alerts** | Low stock notifications      |
+| **Timing Analytics** | Cook time tracking           |
 
 ---
 
@@ -90,6 +90,7 @@
 ### Week 1: Build System Modernization
 
 #### Task 0.1: Migrate TailwindCSS from CDN
+
 ```bash
 # Install Tailwind properly
 npm install -D tailwindcss postcss autoprefixer
@@ -97,6 +98,7 @@ npx tailwindcss init -p
 ```
 
 **Files to modify:**
+
 - [ ] `package.json` - Add Tailwind dependencies
 - [ ] `tailwind.config.js` - Create with current inline config from index.html
 - [ ] `src/index.css` - Create with Tailwind directives
@@ -104,11 +106,13 @@ npx tailwindcss init -p
 - [ ] `vite.config.ts` - Ensure PostCSS processing
 
 #### Task 0.2: Remove CDN Import Maps
+
 - [ ] Delete import map from `index.html`
 - [ ] Verify bundled React is used
 - [ ] Test HMR still works
 
 #### Task 0.3: Project Restructure
+
 ```
 hyphae-pos/
 ├── src/
@@ -129,6 +133,7 @@ hyphae-pos/
 ```
 
 #### Task 0.4: Environment Configuration
+
 - [ ] Create `.env.example` with all variables
 - [ ] Add `.env` to `.gitignore`
 - [ ] Document environment setup in README
@@ -136,6 +141,7 @@ hyphae-pos/
 ### Week 2: Quality Infrastructure
 
 #### Task 0.5: Testing Setup
+
 ```bash
 npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
 ```
@@ -146,11 +152,13 @@ npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
 - [ ] Add test script to `package.json`
 
 #### Task 0.6: Error Handling
+
 - [ ] Create `ErrorBoundary.tsx` component
 - [ ] Wrap app sections with boundaries
 - [ ] Add error logging service stub
 
 #### Task 0.7: Linting & Formatting
+
 ```bash
 npm install -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier
 ```
@@ -161,18 +169,20 @@ npm install -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser
 - [ ] Run initial lint fix
 
 #### Task 0.8: Git Workflow
+
 - [ ] Create `.github/PULL_REQUEST_TEMPLATE.md`
 - [ ] Add branch protection rules
 - [ ] Document commit conventions
 
 ### Phase 0 Deliverables
 
-| Deliverable | Success Criteria |
-|-------------|------------------|
-| Modern Build | No CDN dependencies, `npm run build` succeeds |
-| Test Suite | At least 5 unit tests passing |
-| Lint Clean | Zero ESLint errors |
-| Documentation | Updated README with setup instructions |
+| Deliverable   | Success Criteria                               |
+| ------------- | ---------------------------------------------- |
+| Modern Build  | No CDN dependencies, `pnpm run build` succeeds |
+| Test Suite    | At least 5 unit tests passing, 70% coverage    |
+| Lint Clean    | Zero ESLint errors, pre-commit hooks active    |
+| Documentation | Updated README with setup instructions         |
+| QA Standards  | `docs/QA_TESTING.md` established and enforced  |
 
 ---
 
@@ -183,6 +193,7 @@ npm install -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser
 ### Week 3: Service Layer Architecture
 
 #### Task 1.1: API Client Foundation
+
 ```typescript
 // src/services/api/client.ts
 interface ApiClientConfig {
@@ -193,7 +204,7 @@ interface ApiClientConfig {
 
 class ApiClient {
   private queue: OfflineQueue;
-  
+
   async request<T>(endpoint: string, options: RequestOptions): Promise<T>;
   isOnline(): boolean;
   getQueuedRequests(): QueuedRequest[];
@@ -201,6 +212,7 @@ class ApiClient {
 ```
 
 #### Task 1.2: Offline Queue System
+
 ```typescript
 // src/services/offline/OfflineQueue.ts
 interface QueuedRequest {
@@ -220,6 +232,7 @@ class OfflineQueue {
 ```
 
 #### Task 1.3: Service Interfaces
+
 ```typescript
 // src/services/menu/MenuService.ts
 interface IMenuService {
@@ -247,6 +260,7 @@ interface ILoyaltyService {
 ### Week 4: State Management Refactor
 
 #### Task 1.4: Split Order Context
+
 ```
 OrderContext (current monolith) →
 ├── CartContext (items, modifiers)
@@ -256,6 +270,7 @@ OrderContext (current monolith) →
 ```
 
 #### Task 1.5: Implement React Query
+
 ```bash
 npm install @tanstack/react-query
 ```
@@ -265,6 +280,7 @@ npm install @tanstack/react-query
 - [ ] Add query devtools for development
 
 #### Task 1.6: IndexedDB for Local Storage
+
 ```bash
 npm install idb
 ```
@@ -275,12 +291,12 @@ npm install idb
 
 ### Phase 1 Deliverables
 
-| Deliverable | Success Criteria |
-|-------------|------------------|
-| Service Layer | All services implement interfaces |
-| Offline Queue | Orders queue when offline, sync when online |
-| State Split | Contexts separated, no functionality regression |
-| Local DB | IndexedDB storing orders and cached menu |
+| Deliverable   | Success Criteria                                |
+| ------------- | ----------------------------------------------- |
+| Service Layer | All services implement interfaces               |
+| Offline Queue | Orders queue when offline, sync when online     |
+| State Split   | Contexts separated, no functionality regression |
+| Local DB      | IndexedDB storing orders and cached menu        |
 
 ---
 
@@ -291,6 +307,7 @@ npm install idb
 ### Week 5-6: Core API Integration
 
 #### Task 2.1: Authentication Flow
+
 ```typescript
 // src/services/auth/AuthService.ts
 interface IAuthService {
@@ -306,6 +323,7 @@ interface IAuthService {
 - [ ] Create Protected Route wrapper
 
 #### Task 2.2: Menu Sync Protocol
+
 ```typescript
 // Sync flow:
 // 1. Check last sync timestamp
@@ -329,6 +347,7 @@ interface MenuSyncResponse {
 ```
 
 #### Task 2.3: Order Submission
+
 ```typescript
 interface OrderSubmitPayload {
   terminalId: string;
@@ -350,6 +369,7 @@ interface OrderSubmitPayload {
 ### Week 7-8: Payment Integration
 
 #### Task 2.4: Payment Gateway Abstraction
+
 ```typescript
 // src/services/payment/PaymentService.ts
 interface IPaymentService {
@@ -365,6 +385,7 @@ interface IPaymentService {
 ```
 
 #### Task 2.5: Cash Drawer Integration
+
 ```typescript
 interface ICashDrawerService {
   open(): Promise<void>;
@@ -374,6 +395,7 @@ interface ICashDrawerService {
 ```
 
 #### Task 2.6: Receipt Printing
+
 ```typescript
 interface IReceiptService {
   printReceipt(order: Order, options: PrintOptions): Promise<void>;
@@ -384,14 +406,15 @@ interface IReceiptService {
 
 ### Phase 2 Deliverables
 
-| Deliverable | Success Criteria |
-|-------------|------------------|
-| Auth Flow | Staff can log in, sessions persist |
-| Menu Sync | Menu updates from Core API, delta sync works |
-| Order Flow | Orders submit to Core API, offline queue works |
-| Payments | Card payments process (sandbox mode) |
+| Deliverable | Success Criteria                               |
+| ----------- | ---------------------------------------------- |
+| Auth Flow   | Staff can log in, sessions persist             |
+| Menu Sync   | Menu updates from Core API, delta sync works   |
+| Order Flow  | Orders submit to Core API, offline queue works |
+| Payments    | Card payments process (sandbox mode)           |
 
 ### 🛡️ Phase 2 Security Gate
+
 - [ ] **Audit**: `pnpm audit` passes with 0 critical/high issues.
 - [ ] **Validation**: All new API endpoints have Zod schemas.
 - [ ] **Auth**: Login requires robust authentication (no hardcoded pins).
@@ -405,6 +428,7 @@ interface IReceiptService {
 ### Week 9: Real-Time Channel
 
 #### Task 3.1: WebSocket Connection
+
 ```typescript
 // src/services/realtime/RealtimeService.ts
 interface IRealtimeService {
@@ -421,6 +445,7 @@ interface IRealtimeService {
 ```
 
 #### Task 3.2: Order Status Sync
+
 ```typescript
 // When BOH marks order "Ready":
 // 1. WebSocket message received
@@ -443,12 +468,14 @@ interface OrderStatusUpdate {
 ### Week 10: Kitchen Display Features
 
 #### Task 3.3: Enhanced Order Rail
+
 - [ ] Add real-time status indicators
 - [ ] Show BOH-assigned prep times
 - [ ] Display station assignments
 - [ ] Add bump notification sounds
 
 #### Task 3.4: Conflict Resolution
+
 ```typescript
 // Handle concurrent edits:
 // 1. POS edits order (adds item)
@@ -463,14 +490,15 @@ interface OrderConflictResolution {
 
 ### Phase 3 Deliverables
 
-| Deliverable | Success Criteria |
-|-------------|------------------|
-| WebSocket | Stable connection with auto-reconnect |
-| Status Sync | Order status updates in <500ms |
-| Notifications | Audio + visual alerts for ready orders |
-| Conflict Handling | No data loss on concurrent edits |
+| Deliverable       | Success Criteria                       |
+| ----------------- | -------------------------------------- |
+| WebSocket         | Stable connection with auto-reconnect  |
+| Status Sync       | Order status updates in <500ms         |
+| Notifications     | Audio + visual alerts for ready orders |
+| Conflict Handling | No data loss on concurrent edits       |
 
 ### 🛡️ Phase 3 Security Gate
+
 - [ ] **WebSocket**: Auth tokens verified on connection.
 - [ ] **Rate Limiting**: WS connections limited per IP.
 - [ ] **Sanitization**: Chat/Order notes sanitized against XSS.
@@ -486,16 +514,19 @@ interface OrderConflictResolution {
 See [Security Framework](#security-framework) section for detailed requirements.
 
 #### Task 4.1: Authentication Security
+
 - [ ] Implement secure PIN hashing
 - [ ] Add session timeout (configurable)
 - [ ] Implement device binding (optional)
 
 #### Task 4.2: Input Validation
+
 - [ ] Add Zod schemas for all API payloads
 - [ ] Sanitize text inputs
 - [ ] Rate limit API requests
 
 #### Task 4.3: Audit Logging
+
 ```typescript
 interface AuditLog {
   timestamp: number;
@@ -513,12 +544,14 @@ interface AuditLog {
 ### Week 12: Performance & Deployment
 
 #### Task 4.4: Performance Optimization
+
 - [ ] Implement virtualized lists for large menus
 - [ ] Add service worker for offline
 - [ ] Optimize bundle size (<500KB gzipped)
 - [ ] Add Lighthouse CI checks
 
 #### Task 4.5: Deployment Pipeline
+
 ```yaml
 # .github/workflows/deploy.yml
 jobs:
@@ -527,12 +560,12 @@ jobs:
     - Type check
     - Unit tests
     - E2E tests (Playwright)
-  
+
   build:
     - Production build
     - Bundle analysis
     - Lighthouse audit
-  
+
   deploy:
     - Deploy to staging
     - Smoke tests
@@ -540,18 +573,19 @@ jobs:
 ```
 
 #### Task 4.6: Monitoring Setup
+
 - [ ] Error tracking (Sentry)
 - [ ] Performance monitoring (Core Web Vitals)
 - [ ] Usage analytics (privacy-respecting)
 
 ### Phase 4 Deliverables
 
-| Deliverable | Success Criteria |
-|-------------|------------------|
-| Security Audit | No critical/high vulnerabilities |
-| Performance | Lighthouse score >90 |
-| Deployment | CI/CD pipeline functional |
-| Monitoring | Error and performance tracking active |
+| Deliverable    | Success Criteria                      |
+| -------------- | ------------------------------------- |
+| Security Audit | No critical/high vulnerabilities      |
+| Performance    | Lighthouse score >90                  |
+| Deployment     | CI/CD pipeline functional             |
+| Monitoring     | Error and performance tracking active |
 
 ---
 
@@ -559,15 +593,15 @@ jobs:
 
 ### Recommended Stack Upgrades
 
-| Category | Current | Recommended | Rationale |
-|----------|---------|-------------|-----------|
+| Category             | Current              | Recommended           | Rationale                                       |
+| -------------------- | -------------------- | --------------------- | ----------------------------------------------- |
 | **State Management** | Context + useReducer | Zustand + React Query | Better dev tools, simpler API, built-in offline |
-| **Styling** | Tailwind CDN | Tailwind Build + CVA | Tree-shaking, type-safe variants |
-| **Data Fetching** | Custom hook | TanStack Query | Caching, background sync, devtools |
-| **Forms** | Uncontrolled | React Hook Form + Zod | Validation, performance |
-| **Local Storage** | localStorage | IndexedDB (idb) | More capacity, structured data |
-| **Real-time** | N/A | Socket.io or Ably | Reliable WebSocket with fallbacks |
-| **Testing** | None | Vitest + Playwright | Fast unit tests, E2E coverage |
+| **Styling**          | Tailwind CDN         | Tailwind Build + CVA  | Tree-shaking, type-safe variants                |
+| **Data Fetching**    | Custom hook          | TanStack Query        | Caching, background sync, devtools              |
+| **Forms**            | Uncontrolled         | React Hook Form + Zod | Validation, performance                         |
+| **Local Storage**    | localStorage         | IndexedDB (idb)       | More capacity, structured data                  |
+| **Real-time**        | N/A                  | Socket.io or Ably     | Reliable WebSocket with fallbacks               |
+| **Testing**          | None                 | Vitest + Playwright   | Fast unit tests, E2E coverage                   |
 
 ### Package Recommendations
 
@@ -577,26 +611,26 @@ jobs:
     // Core
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    
+
     // State & Data
     "zustand": "^5.0.0",
     "@tanstack/react-query": "^5.0.0",
     "idb": "^8.0.0",
-    
+
     // Forms & Validation
     "react-hook-form": "^7.50.0",
     "zod": "^3.22.0",
     "@hookform/resolvers": "^3.3.0",
-    
+
     // UI
     "lucide-react": "^0.555.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "@radix-ui/react-dialog": "^1.0.0",
-    
+
     // Real-time
     "socket.io-client": "^4.7.0",
-    
+
     // Utilities
     "date-fns": "^3.3.0",
     "decimal.js": "^10.4.0"
@@ -606,12 +640,12 @@ jobs:
     "vite": "^6.2.0",
     "@vitejs/plugin-react": "^5.0.0",
     "tailwindcss": "^3.4.0",
-    
+
     // Testing
     "vitest": "^2.0.0",
     "@testing-library/react": "^15.0.0",
     "@playwright/test": "^1.42.0",
-    
+
     // Quality
     "typescript": "^5.8.0",
     "eslint": "^9.0.0",
@@ -639,13 +673,13 @@ jobs:
   --color-text-secondary: var(--zinc-400);
   --color-accent: var(--lime-500);
   --color-accent-hover: var(--lime-400);
-  
+
   /* Status Colors */
   --color-success: #22c55e;
   --color-warning: #eab308;
   --color-error: #ef4444;
   --color-info: #3b82f6;
-  
+
   /* Spacing Scale */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -653,16 +687,16 @@ jobs:
   --space-4: 1rem;
   --space-6: 1.5rem;
   --space-8: 2rem;
-  
+
   /* Typography */
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'Space Mono', monospace;
-  
+
   /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 300ms ease;
   --transition-slow: 500ms ease;
-  
+
   /* Z-Index Scale */
   --z-base: 0;
   --z-dropdown: 10;
@@ -676,6 +710,7 @@ jobs:
 ### Component Patterns
 
 #### Button Variants (using CVA)
+
 ```typescript
 // src/components/ui/Button.tsx
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -707,12 +742,12 @@ const buttonVariants = cva(
 
 ### Touch Target Guidelines
 
-| Element | Minimum Size | Recommended |
-|---------|--------------|-------------|
-| **Primary Actions** | 44×44px | 48×48px |
-| **Secondary Actions** | 36×36px | 40×40px |
-| **List Items** | 48px height | 56px height |
-| **Input Fields** | 44px height | 48px height |
+| Element               | Minimum Size | Recommended |
+| --------------------- | ------------ | ----------- |
+| **Primary Actions**   | 44×44px      | 48×48px     |
+| **Secondary Actions** | 36×36px      | 40×40px     |
+| **List Items**        | 48px height  | 56px height |
+| **Input Fields**      | 44px height  | 48px height |
 
 ### Accessibility Requirements
 
@@ -727,10 +762,10 @@ const buttonVariants = cva(
 
 ```css
 /* Mobile-first breakpoints */
---breakpoint-sm: 640px;   /* Large phones */
---breakpoint-md: 768px;   /* Tablets portrait */
---breakpoint-lg: 1024px;  /* Tablets landscape, small laptops */
---breakpoint-xl: 1280px;  /* Desktops */
+--breakpoint-sm: 640px; /* Large phones */
+--breakpoint-md: 768px; /* Tablets portrait */
+--breakpoint-lg: 1024px; /* Tablets landscape, small laptops */
+--breakpoint-xl: 1280px; /* Desktops */
 --breakpoint-2xl: 1536px; /* Large screens */
 ```
 
@@ -740,12 +775,12 @@ const buttonVariants = cva(
 
 ### Bundle Optimization
 
-| Target | Metric | Strategy |
-|--------|--------|----------|
-| **Initial Load** | <2s on 4G | Code splitting, lazy routes |
-| **Bundle Size** | <500KB gzipped | Tree-shaking, dynamic imports |
-| **TTI** | <3s | Defer non-critical JS |
-| **INP** | <200ms | Optimize event handlers |
+| Target           | Metric         | Strategy                      |
+| ---------------- | -------------- | ----------------------------- |
+| **Initial Load** | <2s on 4G      | Code splitting, lazy routes   |
+| **Bundle Size**  | <500KB gzipped | Tree-shaking, dynamic imports |
+| **TTI**          | <3s            | Defer non-critical JS         |
+| **INP**          | <200ms         | Optimize event handlers       |
 
 ### Code Splitting Strategy
 
@@ -789,13 +824,13 @@ function ProductGrid({ products }) {
 
 ### Caching Strategy
 
-| Data Type | Cache Duration | Invalidation |
-|-----------|----------------|--------------|
-| **Menu (products)** | 1 hour | On sync, on admin update |
-| **Active Orders** | Real-time | WebSocket updates |
-| **Completed Orders** | 5 minutes | On new completion |
-| **Loyalty Profiles** | 30 seconds | On transaction |
-| **Config** | Until logout | On push notification |
+| Data Type            | Cache Duration | Invalidation             |
+| -------------------- | -------------- | ------------------------ |
+| **Menu (products)**  | 1 hour         | On sync, on admin update |
+| **Active Orders**    | Real-time      | WebSocket updates        |
+| **Completed Orders** | 5 minutes      | On new completion        |
+| **Loyalty Profiles** | 30 seconds     | On transaction           |
+| **Config**           | Until logout   | On push notification     |
 
 ### Offline Capability
 
@@ -827,6 +862,7 @@ registerRoute(
 ### Authentication & Authorization
 
 #### Staff Authentication
+
 ```typescript
 // Security Requirements:
 // 1. PIN must be 4-6 digits
@@ -846,6 +882,7 @@ interface AuthConfig {
 ```
 
 #### Role-Based Access Control
+
 ```typescript
 enum Permission {
   // Orders
@@ -853,12 +890,12 @@ enum Permission {
   ORDER_EDIT = 'order:edit',
   ORDER_VOID = 'order:void',
   ORDER_REFUND = 'order:refund',
-  
+
   // Payments
   PAYMENT_CASH = 'payment:cash',
   PAYMENT_CARD = 'payment:card',
   PAYMENT_DISCOUNT = 'payment:discount',
-  
+
   // Admin
   SETTINGS_VIEW = 'settings:view',
   SETTINGS_EDIT = 'settings:edit',
@@ -886,6 +923,7 @@ const ROLE_PERMISSIONS: Record<StaffRole, Permission[]> = {
 ### Data Protection
 
 #### Sensitive Data Handling
+
 ```typescript
 // Data Classification:
 // 🔴 HIGH: Payment card data (never stored locally)
@@ -899,6 +937,7 @@ const encryptedPin = await encrypt(pin, getDeviceKey());
 ```
 
 #### PCI Compliance Notes
+
 ```
 Since we're NOT storing card data (using terminal SDK):
 - Full PCI DSS not required
@@ -916,11 +955,13 @@ import { z } from 'zod';
 export const OrderItemSchema = z.object({
   productId: z.string().uuid(),
   quantity: z.number().int().min(1).max(99),
-  modifiers: z.array(z.object({
-    groupId: z.string(),
-    optionId: z.string(),
-    variation: z.enum(['Normal', 'No', 'Side', 'Extra']),
-  })),
+  modifiers: z.array(
+    z.object({
+      groupId: z.string(),
+      optionId: z.string(),
+      variation: z.enum(['Normal', 'No', 'Side', 'Extra']),
+    })
+  ),
   notes: z.string().max(200).optional(),
 });
 
@@ -979,13 +1020,13 @@ interface AuditEntry {
 
 ### Phase Completion Criteria
 
-| Phase | Duration | Key Metrics |
-|-------|----------|-------------|
-| **Phase 0** | 2 weeks | Build passes, 5+ tests, lint clean |
-| **Phase 1** | 2 weeks | Service layer complete, offline queue works |
-| **Phase 2** | 4 weeks | Orders sync to Core API, payments process |
-| **Phase 3** | 2 weeks | WebSocket stable, status updates <500ms |
-| **Phase 4** | 2 weeks | Lighthouse >90, no critical security issues |
+| Phase       | Duration | Key Metrics                                 |
+| ----------- | -------- | ------------------------------------------- |
+| **Phase 0** | 2 weeks  | Build passes, 5+ tests, lint clean          |
+| **Phase 1** | 2 weeks  | Service layer complete, offline queue works |
+| **Phase 2** | 4 weeks  | Orders sync to Core API, payments process   |
+| **Phase 3** | 2 weeks  | WebSocket stable, status updates <500ms     |
+| **Phase 4** | 2 weeks  | Lighthouse >90, no critical security issues |
 
 ### Production Readiness Checklist
 
@@ -1015,6 +1056,6 @@ Total:      12 weeks to production-ready MVP
 
 ---
 
-*Document Version: 1.0*  
-*Last Updated: January 16, 2026*  
-*Next Review: After Phase 0 completion*
+_Document Version: 1.0_  
+_Last Updated: January 16, 2026_  
+_Next Review: After Phase 0 completion_
